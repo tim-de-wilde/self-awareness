@@ -33,7 +33,7 @@ return new class extends Migration {
 
         Schema::create('psychologist_psychologist_group', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('psychologist_id');
+            $table->foreignId('user_id');
             $table->foreignId('psychologist_group_id');
         });
 
