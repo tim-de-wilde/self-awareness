@@ -12,6 +12,11 @@ return new class extends Migration {
                 ->text('description')
                 ->nullable();
             $table->string('role');
+
+            $table->string('gender')->nullable();
+            $table->string('last_name')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->string('phone')->nullable();
         });
 
         Schema::create('treatment_plans', function (Blueprint $table) {
