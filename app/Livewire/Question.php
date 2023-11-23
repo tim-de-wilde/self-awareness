@@ -3,22 +3,22 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Questionnaire;
+
 
 class Question extends Component
-{
+{   public $index;
     public $array_size;
-    public $question_array;
     public $answers;
     public $current_value;
     public $title;
     public $description;
     public $img_loc;
 
+    public Questionnaire $questionnaire;
+    public array $questions;
 
-    private function get_questions($questionair_id){
-        $question_aray= DB::select("");
-        #get data from db
-    }
+
     private function put_answers(){
         #insert answers into database
     }
@@ -26,23 +26,23 @@ class Question extends Component
     #init is overridden here
     public function mount($questionnaire){
 
-        $question_array= array("a","b","c");
-        //$this->get_questions($questionair_id);
-        $this->array_size=sizeof($question_array);
-        dump($this-> array_size);
-        //$this->set_question(0);
-        $this->current_value=0;
+        $this->questionnaire = $questionnaire;
+        $this->questions = $questionnaire->questions()->get()->toArray();
+        $this->array_size = sizeof($this->questions);
+        $this->set_question(0);
+        $this->index=0;
+
 
     }
 
 
     public function set_question($local_index)
-    {
-        # set title
-        # set description
-        # img_loc based on index
-        #$this->current_value = 0;
-        return $local_index;
+    {   
+        $this ->title = $this->questions[$local_index]["title"];
+        $this ->description =$this->questions[$local_index]["description"];
+        $this ->img_loc = $this->questions[$local_index]['asset_location'];
+        $this->current_value=50;
+
     }
 
 
@@ -54,32 +54,29 @@ class Question extends Component
     public function back()
     {   
       
-        if($this->current_value > 0){
-            $this->current_value = $this->current_value -1;
-            $this->set_question($this->current_value);
+        if($this->index > 0){
+            $this->index = $this->index -1;
+            $this->set_question($this->index);
+            $this->set_question($this->index);
         }
         else{
             $this->set_question(0);
-
         }
-        dump($this->current_value,$this->array_size);
-
     }
 
     public function next()
     {   
-        if($this->current_value < $this->array_size){
-            $this->current_value=$this->current_value+1;
-            $this->set_question($this->current_value);
+        if($this->index < ($this->array_size-1)){
+            $this->index=$this->index+1;
+            $this->set_question($this->index);
         }
-        elseif($this->current_value==$this->array_size){
-            $this->set_question($this->array_size);
-            dump("final screen");
+        elseif($this->index==($this->array_size-1)){
+            dump("new screen");
+        
         }
         else{
             
         }
-        dump($this->current_value);
 
     }
 

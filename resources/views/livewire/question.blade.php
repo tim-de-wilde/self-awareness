@@ -1,6 +1,6 @@
 <div>
     <div>
-        <title>{{$title}}</title>
+        <p>{{$title}}</p>
         <p>{{$description}}</p>
         <img src={{$img_loc}}></img>
 
