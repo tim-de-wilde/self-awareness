@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
 
 
 ////
-Route::get('/questions', [QuestionnaireController::class, 'index'])
+Route::get('/questions/{questionnaire}', [QuestionnaireController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('questions');
  
