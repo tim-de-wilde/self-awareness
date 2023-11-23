@@ -16,7 +16,7 @@ class Question extends Component
 
 
     private function get_questions($questionair_id){
-        $question_aray= DB::select("")
+        $question_aray= DB::select("");
         #get data from db
     }
     private function put_answers(){
