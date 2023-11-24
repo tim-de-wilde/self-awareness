@@ -18,9 +18,13 @@ class Question extends Component
 
     public Questionnaire $questionnaire;
     public array $questions;
+    public Answer $answer;
+
+    public $questionaire_title;
 
 
     private function put_answers(){
+      //  $this.$this->answer->update();
         #insert answers into database
     }
 
@@ -29,6 +33,7 @@ class Question extends Component
 
         $this->questionnaire = $questionnaire;
         $this->questions = $questionnaire->questions()->get()->toArray();
+        $this->questionaire_title = $this->questionnaire['name'];
         //inits the answer field with the correct data
         $i=0;
         foreach ($this->questions as $element){
