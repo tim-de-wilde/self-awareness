@@ -1,4 +1,5 @@
 <x-guest-layout>
+    
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const myButton = document.getElementById('myButton');
@@ -16,6 +17,7 @@
       });
     });
   </script>
+  <body>
   <!-- Session Status -->
   <x-auth-session-status class="mb-4" :status="session('status')" />
   <!-- DESKTOP VERSION -->
@@ -41,7 +43,7 @@
     </div>
     <div class="flex items-center justify-end mt-4 "> @if (Route::has('password.request')) <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
         {{ __('Forgot your password?') }}
-      </a> @endif <x-primary-button class="ms-3">
+      </a> @endif <x-primary-button class="ms-3 ">
         {{ __('Log in') }}
       </x-primary-button>
     </div>
@@ -50,10 +52,10 @@
   <div class="block md:hidden fixed inset-x-0 bottom-0 pb-0 safe-area-inset-bottom">
     <div class=" flex justify-center items-center">
       <div class="absolute z-10">
-        <x-my-button id="myButton" class="!rounded-full w-52 h-24 text-2xl top"> Login </x-my-button>
+        <x-my-button id="myButton" class="!rounded-full w-52 h-24 text-2xl top "> Login </x-my-button>
       </div>
     </div>
-    <div id="myModal" class=" top flex flex-col items-center justify-center rounded-3xl insert-0 bg-[#E4F0F0] px-1 pt-20 pb-20">
+    <div id="myModal" class=" top flex flex-col items-center justify-center rounded-3xl insert-0 bg-[#E4F0F0] px-1 pt-20 pb-20 transition duration-1000">
       <div class=" rounded-lg overflow-hidden  transform transition-all max-w-lg w-full">
         <form method="POST" action="{{ route('login') }}"> @csrf <div class="w-full flex flex-col items-center">
             <!-- Email Address -->
@@ -79,9 +81,10 @@
             </div>
           </div>
           <div class="flex justify-center items-center">
-            <x-primary-button class="inline-flex items-center">
-              <span class="inline-flex items-center justify-center p-1 bg-[#B9DDD8] rounded-full">
-                <x-heroicon-o-arrow-right-on-rectangle class="w-50 h-10  text-gray-800" />
+            <!---login-icon-button-->
+            <x-primary-button class="inline-flex items-center ">
+              <span class="inline-flex items-center justify-center p-1 bg-[#B9DDD8] rounded-full hover:bg-[#a9d6d0] active:bg-[#53aca0]">
+                <x-heroicon-o-arrow-right-on-rectangle class="w-50 h-10  text-gray-800 "  />
               </span>
             </x-primary-button>
           </div>
@@ -93,6 +96,28 @@
       </div>
     </div>
     <style>
+
+body {
+        background-image: url('https://images.pexels.com/photos/1770706/pexels-photo-1770706.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); /* Pfad zum Hintergrundbild */
+        background-size: cover; /* Skaliert das Bild, um den Container zu füllen */
+        background-position: center; /* Zentriert das Bild */
+        background-attachment: fixed; /* Hintergrund bleibt beim Scrollen fest */
+    }
+
+
+    #myModal {
+        z-index: 5; /* Stellt sicher, dass diese Elemente über dem Hintergrund liegen */
+        position: relative; /* z-index funktioniert nur mit positionierten Elementen */
+    }
+
+#myButton {
+
+    z-index: 50; /* Stellt sicher, dass diese Elemente über dem Hintergrund liegen */
+    position: relative; /* z-index funktioniert nur mit positionierten Elementen */
+}
+
+
+
 
     /*----Classes for myModal Slide Effect-----*/
       #myModal {
@@ -118,5 +143,5 @@
       }
       /*-----------------------------------------*/
     </style>
+    </body>
 </x-guest-layout>
-</div>
