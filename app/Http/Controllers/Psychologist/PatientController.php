@@ -20,34 +20,19 @@ class PatientController extends Controller
 
     public function create(): View
     {
-        return view('psychologist.patient.createOrEdit');
+        return view('psychologist.patient.create');
     }
 
     public function edit(User $patient): View
     {
-        return view('psychologist.patient.createOrEdit', [
+        return view('psychologist.patient.edit', [
             'patient' => $patient,
         ]);
-    }
-
-    public function store(): RedirectResponse
-    {
-        //todo Implement
-
-        return redirect()->back();
-    }
-
-    public function update(User $patient): RedirectResponse
-    {
-        //todo Implement
-
-        return redirect()->back();
     }
 
     public function delete(User $patient): RedirectResponse
     {
         $patient->delete();
-
-        return redirect()->back();
+        return redirect()->route('psychologist.manage.index');
     }
 }
