@@ -22,6 +22,7 @@ class Question extends Component
     public array $questions;
     public Answer $answer;
     public string $questionnaireTitle;
+    public bool $isFinished = true;
 
     private function putAnswers(): void
     {
@@ -34,6 +35,8 @@ class Question extends Component
                 'value' => $element[2]
             ]);
         }
+
+        $this->isFinished = true;
     }
 
     public function mount(Questionnaire $questionnaire): void
