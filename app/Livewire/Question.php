@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Questionnaire;
 use App\Models\Answer;
+use Illuminate\Support\Facades\Auth;
 
 
 class Question extends Component
@@ -24,10 +25,17 @@ class Question extends Component
 
 
     private function put_answers(){
-      //  $this.$this->answer->update();
-        #insert answers into database
-    }
 
+        foreach ($this->answers as $element){
+        Answer::create([
+            
+            'questionnaire_id'=> $element[0],
+            'question_id'=> $element[1],
+            'treatment_plan_id'=> 1,
+            'user_id'=>  Auth::id(),
+            'value' => $element[2]]);
+        }
+    }
     #init is overridden here
     public function mount($questionnaire){
 
@@ -95,8 +103,9 @@ class Question extends Component
             $this->set_question($this->index);
         }
         elseif($this->index==($this->array_size-1)){
-            dump("new screen");
-            dump($this->answers);
+            $this->put_answers();
+            //set variable for finishing screen
+            
         
         }
         else{
