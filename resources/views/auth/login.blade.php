@@ -23,13 +23,14 @@
 
     <div class=" justify-center items-center">
       <div class="relative z-10">
+       
         <!--<x-my-button id="myButton" class="!rounded-full w-52 h-24 text-2xl  "> Login </x-my-button>-->
       </div>
     
  
     <div id="myModal2" class="hidden md:block flex-col items-center justify-center  insert-0 bg-[#E4F0F0] px-1 pt-20 pb-20 ">
-      <div class="  overflow-hidden  transform transition-all max-w-lg w-full">
-        <form method="POST" action="{{ route('login') }}"> @csrf <div class="w-full flex flex-col items-center">
+      <div class="  overflow-hidden  transform transition-all   ">
+        <form method="POST" action="{{ route('login') }}"> @csrf <div class=" flex flex-col items-center ">
             <!-- Email Address -->
             <div class=" my-4 px-2  ">
               <x-text-input id="email" class="block mt-1 w-80  !rounded-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" placeholder="{{ __('Email') }}" />
@@ -115,7 +116,7 @@
       </div>
     </div>
     <style>
-
+@media screen and (max-width: 800px) {
 body {
         background-image: url('https://images.pexels.com/photos/1770706/pexels-photo-1770706.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); /* Pfad zum Hintergrundbild */
         background-size: cover; /* Skaliert das Bild, um den Container zu füllen */
@@ -123,7 +124,7 @@ body {
         background-attachment: fixed; /* Hintergrund bleibt beim Scrollen fest */
     }
 
-
+  }
     #myModal {
         z-index: 5; /* Stellt sicher, dass diese Elemente über dem Hintergrund liegen */
         position: relative; /* z-index funktioniert nur mit positionierten Elementen */
