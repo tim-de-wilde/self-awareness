@@ -13,19 +13,13 @@ Route::get('manage', [ManagePatientAndQuestionnaireController::class, 'index'])
 Route::get('/patients/create', [PatientController::class, 'create'])
     ->name('psychologist.patient.create');
 
-Route::post('/questionnaires/create', [PatientController::class, 'store'])
-    ->name('psychologist.patient.store');
-
 Route::get('/patients/{patient}', [PatientController::class, 'show'])
     ->name('psychologist.patient.show');
 
 Route::get('/patients/{patient}/edit', [PatientController::class, 'edit'])
     ->name('psychologist.patient.edit');
 
-Route::put('/patients/{patient}/edit', [PatientController::class, 'update'])
-    ->name('psychologist.patient.update');
-
-Route::delete('/patients/{patient}', [PatientController::class, 'delete'])
+Route::post('/patients/{patient}/delete', [PatientController::class, 'delete'])
     ->name('psychologist.patient.delete');
 
 // Questionnaires

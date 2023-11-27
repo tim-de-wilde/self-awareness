@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('last_name')->nullable();
             $table->date('birth_date')->nullable();
             $table->string('phone')->nullable();
+            $table->string('password')->nullable()->change();
         });
 
         Schema::create('treatment_plans', function (Blueprint $table) {
