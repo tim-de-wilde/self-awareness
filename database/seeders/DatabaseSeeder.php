@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\Question;
+use App\Models\Questionnaire;
 use App\Models\TreatmentPlan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -37,5 +39,8 @@ class DatabaseSeeder extends Seeder
              ]);
          }
 
+         Questionnaire::factory(5)
+             ->has(Question::factory(5))
+             ->create(['user_id' => $psychologist->id]);
     }
 }
