@@ -24,7 +24,7 @@
     <div class=" justify-center items-center">
       <div class="relative z-10">
        
-        <!--<x-my-button id="myButton" class="!rounded-full w-52 h-24 text-2xl  "> Login </x-my-button>-->
+        <!--<x-login-button id="myButton" class="!rounded-full w-52 h-24 text-2xl  "> Login </x-login-button>-->
       </div>
     
  
@@ -72,7 +72,7 @@
   <div class="block md:hidden fixed inset-x-0 bottom-0 pb-0 safe-area-inset-bottom">
     <div class=" flex justify-center items-center">
       <div class="absolute z-10">
-        <x-my-button id="myButton" class="!rounded-full w-52 h-24 text-2xl top "> Login </x-my-button>
+        <x-login-button id="myButton" class="!rounded-full w-52 h-24 text-2xl top "> Login </x-login-button>
       </div>
     </div>
     <div id="myModal" class=" top flex flex-col items-center justify-center rounded-3xl insert-0 bg-[#E4F0F0] px-1 pt-20 pb-20 transition duration-1000 ">
