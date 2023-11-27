@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Questionnaire;
 use App\Models\Answer;
@@ -9,108 +10,93 @@ use Illuminate\Support\Facades\Auth;
 
 
 class Question extends Component
-{   public $index;
-    public $array_size;
+{
+    public int $index = 0;
+    public int $arraySize;
     public array $answers;
-    public $current_value;
-    public $title;
-    public $description;
-    public $img_loc;
-
+    public int $currentValue;
+    public string $title;
+    public string $description;
+    public string $imgLoc;
     public Questionnaire $questionnaire;
     public array $questions;
     public Answer $answer;
+    public string $questionnaireTitle;
 
-    public $questionaire_title;
-
-
-    private function put_answers(){
-
-        foreach ($this->answers as $element){
+    private function putAnswers(): void
+    {
+        foreach ($this->answers as $element) {
             Answer::create([
                 'questionnaire_id'=> $element[0],
                 'question_id'=> $element[1],
                 'treatment_plan_id'=> 1,
                 'user_id'=>  Auth::id(),
-                'value' => $element[2]]);
+                'value' => $element[2]
+            ]);
         }
     }
-    #init is overridden here
-    public function mount($questionnaire){
 
+    public function mount(Questionnaire $questionnaire): void
+    {
         $this->questionnaire = $questionnaire;
-        $this->questions = $questionnaire->questions()->get()->toArray();
-        $this->questionaire_title = $this->questionnaire['name'];
+        $this->questions = $questionnaire
+            ->questions()
+            ->get()
+            ->toArray();
+        $this->questionnaireTitle = $this->questionnaire['name'];
         //inits the answer field with the correct data
-        $i=0;
+        $i = 0;
         foreach ($this->questions as $element){
-            $this->answers[$i]= array( $element["pivot"]["questionnaire_id"],  $element["pivot"]["question_id"],null);
+            $this->answers[$i]= [$element['pivot']['questionnaire_id'], $element['pivot']['question_id'], null];
             $i++;
         }
 
-        $this->array_size = sizeof($this->questions);
-        $this->set_question(0);
-
-
-
-        $this->index=0;
-
-
+        $this->arraySize = count($this->questions);
+        $this->setQuestion(0);
     }
 
 
-    public function set_question($local_index)
+    public function setQuestion(int $localIndex): void
     {   
-        $this ->title = $this->questions[$local_index]["title"];
-        $this ->description =$this->questions[$local_index]["description"];
-        $this ->img_loc = $this->questions[$local_index]['asset_location'];
+        $this->title = $this->questions[$localIndex]['title'];
+        $this->description =$this->questions[$localIndex]['description'];
+        $this->imgLoc = $this->questions[$localIndex]['asset_location'];
 
-        if($this->answers[$local_index][2]== !null){
-            $this->current_value = $this->answers[$local_index][2];
+        if ($this->answers[$localIndex][2] !== null){
+            $this->currentValue = $this->answers[$localIndex][2];
+        } else {
+            $this->currentValue = 50;
         }
-        else{
-            $this->current_value=50;
-        }
-        return null;
     }
 
 
-    public function render()
+    public function render(): View
     {   
         return view('livewire.question');
     }
 
-    public function back()
+    public function back(): void
     {
-        $this->answers[$this->index][2]= $this->current_value;
-        if($this->index > 0){
+        $this->answers[$this->index][2] = $this->currentValue;
+        if($this->index > 0) {
             $this->index = $this->index -1;
-            $this->set_question($this->index);
-        }
-        else{
-            $this->set_question(0);
+            $this->setQuestion($this->index);
+        } else {
+            $this->setQuestion(0);
         }
     }
 
-    public function next()
+    public function next(): void
     {
         #save results
-        $this->answers[$this->index][2]= $this->current_value;
+        $this->answers[$this->index][2]= $this->currentValue;
 
-        if($this->index < ($this->array_size-1)){
-            $this->index=$this->index+1;
-            $this->set_question($this->index);
-        }
-        elseif($this->index==($this->array_size-1)){
-            $this->put_answers();
+        if($this->index < ($this->arraySize - 1)){
+            $this->index=$this->index + 1;
+            $this->setQuestion($this->index);
+        } elseif($this->index === ($this->arraySize - 1)){
+            $this->putAnswers();
             //set variable for finishing screen
-            
-        
         }
-        else{
-            return null;
-        }
-
     }
-
 }
