@@ -27,13 +27,12 @@ class Question extends Component
     private function put_answers(){
 
         foreach ($this->answers as $element){
-        Answer::create([
-            
-            'questionnaire_id'=> $element[0],
-            'question_id'=> $element[1],
-            'treatment_plan_id'=> 1,
-            'user_id'=>  Auth::id(),
-            'value' => $element[2]]);
+            Answer::create([
+                'questionnaire_id'=> $element[0],
+                'question_id'=> $element[1],
+                'treatment_plan_id'=> 1,
+                'user_id'=>  Auth::id(),
+                'value' => $element[2]]);
         }
     }
     #init is overridden here
