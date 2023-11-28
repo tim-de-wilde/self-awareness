@@ -62,6 +62,7 @@
                     <div class="bg-orange-300 rounded-lg space-y-4">
                         <h3>Stemming</h3>
                         <p>
+                            @livewire('Questionnaire.QuestionnaireList')
                             Dit is een beschrijving van een questionnaire.
                         </p>
                         <button>
