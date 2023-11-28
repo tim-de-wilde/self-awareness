@@ -20,7 +20,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $user = \Illuminate\Support\Facades\Auth::user();
+    return view('dashboard', [
+        'currentUser' => $user
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
