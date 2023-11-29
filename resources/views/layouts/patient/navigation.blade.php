@@ -3,9 +3,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a action="{{ route('logout') }}">
+
+                <!--@TODO-->
+                <!-- Logout Button -->
+                <div  class="shrink-0 flex items-center">
+                    <a href="{{ route('logout') }}">
                      <x-heroicon-o-arrow-left-on-rectangle class="h-7  text-gray-400  hover:text-gray-500  focus:outline-none  focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out "  />
                     
                     </a>
