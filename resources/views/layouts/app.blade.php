@@ -30,9 +30,9 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <body>
                 {{ $slot }}
-            </main>
+            </body>
         </div>
 
         @livewireScripts

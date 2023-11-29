@@ -1,4 +1,4 @@
-<x-app-layout role="psychologist">
+<x-app-layout role="patient">
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const arrowButton = document.getElementById('arrowButton');
@@ -28,7 +28,7 @@
             <div class="flex justify-between items-center mb-8">
               <!-- inside Container for centered Name -->
               <div class="flex-grow text-center">
-                <div class="text-2xl font-extrabold ml-10">Kate Williams </div>
+                <div class="text-2xl font-extrabold ml-10">{{ $currentUser->name . ' ' . $currentUser->last_name }} </div>
               </div>
               <!-- Icon -->
               <button id="arrowButton" onclick="handleChevronClick()" class="focus:outline-none ">
@@ -40,7 +40,7 @@
               <x-heroicon-o-academic-cap class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">Email:</span>
             </div>
-            <span class="font-serif block mt-2 ml-1">katewilliams@email.de</span>
+            <span class="font-serif block mt-2 ml-1">{{$currentUser->email}}</span>
             <hr class="border-t border-gray-300 my-5">
             <div class="flex items-center">
               <x-heroicon-o-envelope class="h-5 text-gray-800" />
