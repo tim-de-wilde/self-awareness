@@ -14,6 +14,6 @@ class DashboardController extends Controller
     public function index(): View
     {
         $treatmentPlan = Auth::user()->patientTreatmentPlan()->get();
-        return view('dashboard', ['questionnaires' => $treatmentPlan->questionnaires()]);
+        return view('dashboard', ['questionnaires' => $treatmentPlan->questionnaires()->get()]);
     }
 }
