@@ -1,3 +1,6 @@
+<!--parent component = index.blade.php-->
+
+<body>
 <div class="pt-8" x-data="{ tabs: {patients: 'p', questionnaires: 'q'}, currentTab: 'p', showSearchInput: false }">
     {{-- Floating button new patient --}}
     <x-floating-anchor x-show="currentTab === tabs.patients" :href="route('psychologist.patient.create')">
@@ -13,16 +16,16 @@
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
         {{-- Tabs & search button --}}
         <div class="flex pb-8 px-4 space-x-4 items-center">
-            <div x-show="! showSearchInput" class="flex bg-white rounded-full p-1" x-bind:class="{'flex-1': ! showSearchInput}">
+            <div x-show="! showSearchInput" class="flex bg-white  rounded-full p-1" x-bind:class="{'flex-1': ! showSearchInput}">
                 <button
                         x-on:click="currentTab = tabs.patients"
-                        x-bind:class="{'bg-gray-400 text-white': currentTab === tabs.patients}"
+                        x-bind:class="{'bg-[#9ed6d0] hover:bg-[#7ec9c0] active:bg-[#3f978d] text-white': currentTab === tabs.patients}"
                         class="flex-1 p-1 text-center rounded-full">
                     {{ __('Patients') }}
                 </button>
                 <button
                         x-on:click="currentTab = tabs.questionnaires"
-                        x-bind:class="{'bg-gray-400 text-white': currentTab === tabs.questionnaires}"
+                        x-bind:class="{'bg-[#9ed6d0] hover:bg-[#7ec9c0] active:bg-[#3f978d] text-white': currentTab === tabs.questionnaires}"
                         class="flex-1 p-1 text-center rounded-full">
                     {{ __('Questionnaires') }}
                 </button>
@@ -31,7 +34,7 @@
                 <div x-show="showSearchInput" class="flex-1">
                     <x-text-input class="w-full" wire:model.live="search"/>
                 </div>
-                <button x-on:click="showSearchInput = ! showSearchInput" class="w-10 h-10 rounded-full bg-gray-400 flex justify-center items-center">
+                <button x-on:click="showSearchInput = ! showSearchInput" class="w-10 h-10 rounded-full bg-[#9ed6d0] hover:bg-[#7ec9c0] active:bg-[#3f978d] flex justify-center items-center">
                     <x-heroicon-o-magnifying-glass class="w-5 h-5 text-white"/>
                 </button>
             </div>
@@ -42,7 +45,7 @@
             <div x-show="currentTab === tabs.patients">
                 <div class="divide-y divide-gray-200">
                     @foreach($patients as $patient)
-                        <a href="{{ route('psychologist.patient.show', ['patient' => $patient->id]) }}" class="p-4 flex hover:bg-gray-100">
+                        <a href="{{ route('psychologist.patient.show', ['patient' => $patient->id]) }}" class="p-4 flex hover:bg-[#E4EFEF]">
                             <x-avatar :user="$patient"/>
                             <div class="flex flex-1 flex-col text-center">
                                 <p class="font-semibold text-lg">{{ $patient->name }}</p>
@@ -73,3 +76,5 @@
         </div>
     </div>
 </div>
+
+</body>

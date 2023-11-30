@@ -1,4 +1,4 @@
-<x-app-layout role="patient">
+<x-app-layout role="psychologist">
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const arrowButton = document.getElementById('arrowButton');
