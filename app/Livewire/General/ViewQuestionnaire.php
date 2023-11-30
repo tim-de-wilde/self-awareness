@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\General;
 
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -9,7 +9,7 @@ use App\Models\Answer;
 use Illuminate\Support\Facades\Auth;
 
 
-class Question extends Component
+class ViewQuestionnaire extends Component
 {
     public int $index = 0;
     public int $arraySize;
@@ -22,7 +22,7 @@ class Question extends Component
     public array $questions;
     public Answer $answer;
     public string $questionnaireTitle;
-    public bool $isFinished = true;
+    public bool $isFinished = false;
 
     private function putAnswers(): void
     {
@@ -75,7 +75,7 @@ class Question extends Component
 
     public function render(): View
     {   
-        return view('livewire.question');
+        return view('livewire.general.view-questionnaire');
     }
 
     public function back(): void
