@@ -27,6 +27,26 @@ class DatabaseSeeder extends Seeder
              ->role(Role::Parent)
              ->create();
 
+         $client = User::factory()
+             ->role(Role::Client)
+             ->create([
+                 'email' => 'client@example.com'
+             ]);
+
+         $treatmentPlan = $client->clientTreatmentPlans()->save(
+             TreatmentPlan::factory()->create([
+                 'client_id' => $client->id,
+                 'psychologist_id' => $psychologist->id,
+                 'parent_id' => $parent->id,
+             ])
+         );
+
+         $treatmentPlan->questionnaires()->saveMany(
+             Questionnaire::factory(3)
+                 ->has(Question::factory(5))
+                 ->create()
+         );
+
          for ($i = 0; $i < 10; $i++) {
              $client = User::factory()
                  ->role(Role::Client)
