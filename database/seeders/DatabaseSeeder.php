@@ -32,15 +32,17 @@ class DatabaseSeeder extends Seeder
                  ->role(Role::Patient)
                  ->create();
 
-             TreatmentPlan::create([
+             $treatmentPlan = TreatmentPlan::factory()->create([
                  'patient_id' => $patient->id,
                  'psychologist_id' => $psychologist->id,
                  'parent_id' => $parent->id,
              ]);
-         }
 
-         Questionnaire::factory(5)
-             ->has(Question::factory(5))
-             ->create(['user_id' => $psychologist->id]);
+             $questionnaires = Questionnaire::factory(3)
+                 ->has(Question::factory(5))
+                 ->create();
+
+             $treatmentPlan->questionnaires()->saveMany($questionnaires);
+         }
     }
 }
