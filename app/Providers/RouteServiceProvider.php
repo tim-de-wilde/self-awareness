@@ -41,8 +41,8 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/psychologist.php'));
 
             Route::middleware('web')
-                ->prefix('patient')
-                ->group(base_path('routes/patient.php'));
+                ->prefix('client')
+                ->group(base_path('routes/client.php'));
         });
     }
 }
