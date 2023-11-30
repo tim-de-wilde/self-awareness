@@ -22,7 +22,7 @@ return new class extends Migration {
 
         Schema::create('treatment_plans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id');
+            $table->foreignId('client_id');
             $table->foreignId('parent_id');
             $table->foreignId('psychologist_id');
             $table->timestamps();

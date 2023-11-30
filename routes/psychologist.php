@@ -1,26 +1,31 @@
 <?php
 
-use App\Http\Controllers\Psychologist\ManagePatientAndQuestionnaireController;
-use App\Http\Controllers\Psychologist\PatientController;
+use App\Http\Controllers\Psychologist\ManageClientAndQuestionnaireController;
+use App\Http\Controllers\Psychologist\ClientController;
 use App\Http\Controllers\Psychologist\QuestionnaireController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('manage', [ManagePatientAndQuestionnaireController::class, 'index'])
+Route::get('/dashboard', function () {
+    return view('psychologist.dashboard');
+})->name('psychologist.dashboard');
+
+
+Route::get('manage', [ManageClientAndQuestionnaireController::class, 'index'])
     ->name('psychologist.manage.index');
 
-// Patients
+// clients
 
-Route::get('/patients/create', [PatientController::class, 'create'])
-    ->name('psychologist.patient.create');
+Route::get('/clients/create', [ClientController::class, 'create'])
+    ->name('psychologist.client.create');
 
-Route::get('/patients/{patient}', [PatientController::class, 'show'])
-    ->name('psychologist.patient.show');
+Route::get('/clients/{client}', [ClientController::class, 'show'])
+    ->name('psychologist.client.show');
 
-Route::get('/patients/{patient}/edit', [PatientController::class, 'edit'])
-    ->name('psychologist.patient.edit');
+Route::get('/clients/{client}/edit', [ClientController::class, 'edit'])
+    ->name('psychologist.client.edit');
 
-Route::post('/patients/{patient}/delete', [PatientController::class, 'delete'])
-    ->name('psychologist.patient.delete');
+Route::post('/clients/{client}/delete', [ClientController::class, 'delete'])
+    ->name('psychologist.client.delete');
 
 // Questionnaires
 

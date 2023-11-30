@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class PatientAndQuestionnaireOverview extends Component
+class ClientAndQuestionnaireOverview extends Component
 {
     public string $search = '';
 
@@ -18,8 +18,8 @@ class PatientAndQuestionnaireOverview extends Component
         /** @var User $user */
         $user = Auth::user();
 
-        return view('livewire.psychologist.patient-and-questionnaire-overview', [
-            'patients' => $user->patients()
+        return view('livewire.psychologist.client-and-questionnaire-overview', [
+            'clients' => $user->clients()
                 ->where('last_name', 'like', '%' . $this->search . '%')
                 ->get(),
             'questionnaires' => $user->ownedQuestionnaires()

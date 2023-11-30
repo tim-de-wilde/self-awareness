@@ -44,17 +44,17 @@ class User extends Authenticatable
     ];
 
     /**
-     * All psychologist's patients.
+     * All psychologist's clients
      *
      * @return BelongsToMany
      */
-    public function patients(): BelongsToMany
+    public function clients(): BelongsToMany
     {
         return $this->belongsToMany(
             self::class,
             'treatment_plans',
             'psychologist_id',
-            'patient_id',
+            'client_id',
         );
     }
 
@@ -68,8 +68,8 @@ class User extends Authenticatable
         return $this->hasMany(Questionnaire::class);
     }
 
-    public function patientTreatmentPlans(): HasOne
+    public function clientTreatmentPlans(): HasOne
     {
-        return $this->hasOne(TreatmentPlan::class, 'patient_id');
+        return $this->hasOne(TreatmentPlan::class, 'client_id');
     }
 }

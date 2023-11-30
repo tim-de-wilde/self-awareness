@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index(): View
     {
-        $treatmentPlan = Auth::user()->patientTreatmentPlans()->first();
+        $treatmentPlan = Auth::user()->clientTreatmentPlans()->first();
 
         return view('client.dashboard', [
             'questionnaires' => $treatmentPlan->questionnaires()->get(),

@@ -4,17 +4,31 @@ namespace App\Enums;
 
 enum Role: string
 {
-    case Patient = 'patient';
+    case Client = 'client';
     case Psychologist = 'psychologist';
     case Parent = 'parent';
 
     public static function labels(): array
     {
         return [
-            'patient' => __('Patient'),
+            'client' => __('Client'),
             'psychologist' => __('Psychologist'),
             'parent' => __('Parent'),
         ];
+    }
+
+    public static function landingPages(): array
+    {
+        return [
+            'client' => 'client.dashboard',
+            'psychologist' => 'psychologist.dashboard',
+            'parent' => 'parent.dashboard',
+        ];
+    }
+
+    public function landingPage(): string
+    {
+        return self::landingPages()[$this->value];
     }
 
     public function label(): string
