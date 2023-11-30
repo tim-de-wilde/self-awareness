@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $treatmentPlan = Auth::user()->clientTreatmentPlans()->first();
 
         return view('client.dashboard', [
-            'questionnaires' => $treatmentPlan->questionnaires()->get(),
+            'questionnaires' => $treatmentPlan?->questionnaires()->get(),
             'currentUser' => Auth::user(),
         ]);
     }

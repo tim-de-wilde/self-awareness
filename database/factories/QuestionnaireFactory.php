@@ -16,6 +16,7 @@ class QuestionnaireFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
+            'description' => $this->faker->text(),
             'user_id' => 1,
         ];
     }
