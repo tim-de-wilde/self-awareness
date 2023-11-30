@@ -2,10 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class QuestionnaireFactory extends Factory
+class TreatmentPlanFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,8 +14,7 @@ class QuestionnaireFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->name(),
-            'user_id' => 1,
+
         ];
     }
 }
