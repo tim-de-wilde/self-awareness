@@ -34,7 +34,6 @@ class DatabaseSeeder extends Seeder
                  ->role(Role::Client)
                  ->create();
 
-
              $treatmentPlan = TreatmentPlan::factory()->create([
                  'client_id' => $client->id,
                  'psychologist_id' => $psychologist->id,
@@ -42,7 +41,7 @@ class DatabaseSeeder extends Seeder
              ]);
 
              $school = School::factory()
-                 ->create(['patient_id' => $patient->id]);
+                 ->create(['client_id' => $client->id]);
 
              $questionnaires = Questionnaire::factory(3)
                  ->has(Question::factory(5))
