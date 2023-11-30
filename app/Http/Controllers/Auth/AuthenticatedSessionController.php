@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         return redirect()->route(
-            route(Auth::user()->role->landingPage())
+            Auth::user()->role->landingPage()
         );
     }
 
