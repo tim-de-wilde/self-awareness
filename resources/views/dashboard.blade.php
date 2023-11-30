@@ -5,14 +5,11 @@
       const infoModal = document.getElementById('infoModal');
       
       infoModal.addEventListener('click', toggleModalAndButton);
-
-
     });
 
     function toggleModalAndButton() {
-    infoModal.classList.toggle('top');
-    
-}
+        infoModal.classList.toggle('top');
+    }
 
     function handleChevronClick() {
       // Fügen Sie hier Ihre Logik für das Klicken auf das Chevron-Icon hinzu
