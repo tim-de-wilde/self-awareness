@@ -11,13 +11,8 @@ class QuestionnaireController extends Controller
 {
     public function index(Questionnaire $questionnaire): View
     {
-
-        # get array with questions
-
-        # set up the startingpoint view
-
-        return view('questionnaire.question',['questionnaire' => $questionnaire]);
-
+        return view('general.questionnaire.index', [
+            'questionnaire' => $questionnaire
+        ]);
     }
-
 }

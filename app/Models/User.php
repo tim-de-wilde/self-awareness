@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\Gender;
 use App\Enums\Role;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
@@ -64,5 +65,10 @@ class User extends Authenticatable
     public function ownedQuestionnaires(): HasMany
     {
         return $this->hasMany(Questionnaire::class);
+    }
+
+    public function patientTreatmentPlans(): BelongsTo
+    {
+        return $this->belongsTo(TreatmentPlan::class, 'patient_id');
     }
 }
