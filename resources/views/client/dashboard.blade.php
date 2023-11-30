@@ -61,8 +61,13 @@
             <span class="font-bold text-1xl ">Vragen</span>
           </div>
 
+          @php($cardColors = ['orange', 'orange', 'orange'])
+
           @forelse($questionnaires as $questionnaire)
-            <x-questionnaire-overview-card :questionnaire="$questionnaire"/>
+            @php($color = \Illuminate\Support\Arr::random($cardColors))
+            <x-questionnaire-overview-card
+                    :color="$color"
+                    :questionnaire="$questionnaire"/>
           @empty
             <span class="italic">
               Er zijn momenteel geen vragenlijsten beschikbaar.
