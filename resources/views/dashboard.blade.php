@@ -3,11 +3,16 @@
     document.addEventListener('DOMContentLoaded', function() {
       const arrowButton = document.getElementById('arrowButton');
       const infoModal = document.getElementById('infoModal');
-      arrowButton.addEventListener('click', function() {
-        infoModal.classList.toggle('top');
-        arrowButton.classList.toggle('top');
-      });
+      
+      infoModal.addEventListener('click', toggleModalAndButton);
+
+
     });
+
+    function toggleModalAndButton() {
+    infoModal.classList.toggle('top');
+    
+}
 
     function handleChevronClick() {
       // Fügen Sie hier Ihre Logik für das Klicken auf das Chevron-Icon hinzu
@@ -22,7 +27,7 @@
       <!--bg-[#E4EFEF]-->
       <div class=" overflow-hidden shadow-sm sm:rounded-lg justify-center flex">
         <!-- Info Modal-->
-        <div id="" class="w-10/12 ">
+        <div id="" class="w-10/12 cursor-pointer ">
           <!-- Flex Container for Name and Icon -->
           <div id="infoModal" class="bg-[#FFFFFF] p-6 rounded-3xl shadow-lg mb-5 ">
             <div class="flex justify-between items-center mb-8">
@@ -31,11 +36,11 @@
                 <div class="text-2xl font-extrabold ml-10">{{ $currentUser->name . ' ' . $currentUser->last_name }} </div>
               </div>
               <!-- Icon -->
-              <button id="arrowButton" onclick="handleChevronClick()" class="focus:outline-none ">
+              <button id="arrowButton"  class="focus:outline-none ">
                 <x-heroicon-o-chevron-down class="h-9 text-gray-800 " />
               </button>
             </div>
-            <!-- Info Modal -->
+            
             <div class="flex items-center ">
               <x-heroicon-o-academic-cap class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">Email:</span>
