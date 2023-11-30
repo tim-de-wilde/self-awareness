@@ -1,6 +1,6 @@
-<div class="pt-8" x-data="{ tabs: {patients: 'p', questionnaires: 'q'}, currentTab: 'p', showSearchInput: false }">
-    {{-- Floating button new patient --}}
-    <x-floating-anchor x-show="currentTab === tabs.patients" :href="route('psychologist.patient.create')">
+<div class="pt-8" x-data="{ tabs: {clients: 'c', questionnaires: 'q'}, currentTab: 'c', showSearchInput: false }">
+    {{-- Floating button new client --}}
+    <x-floating-anchor x-show="currentTab === tabs.clients" :href="route('psychologist.client.create')">
         <x-heroicon-o-plus class="w-6 h-6"/>
     </x-floating-anchor>
 
@@ -15,10 +15,10 @@
         <div class="flex pb-8 px-4 space-x-4 items-center">
             <div x-show="! showSearchInput" class="flex bg-white rounded-full p-1" x-bind:class="{'flex-1': ! showSearchInput}">
                 <button
-                        x-on:click="currentTab = tabs.patients"
-                        x-bind:class="{'bg-gray-400 text-white': currentTab === tabs.patients}"
+                        x-on:click="currentTab = tabs.clients"
+                        x-bind:class="{'bg-gray-400 text-white': currentTab === tabs.clients}"
                         class="flex-1 p-1 text-center rounded-full">
-                    {{ __('Patients') }}
+                    {{ __('Clients') }}
                 </button>
                 <button
                         x-on:click="currentTab = tabs.questionnaires"
@@ -38,15 +38,15 @@
         </div>
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            {{-- Patient tab --}}
-            <div x-show="currentTab === tabs.patients">
+            {{-- Client tab --}}
+            <div x-show="currentTab === tabs.clients">
                 <div class="divide-y divide-gray-200">
-                    @foreach($patients as $patient)
-                        <a href="{{ route('psychologist.patient.show', ['patient' => $patient->id]) }}" class="p-4 flex hover:bg-gray-100">
-                            <x-avatar :user="$patient"/>
+                    @foreach($clients as $client)
+                        <a href="{{ route('psychologist.client.show', ['client' => $client->id]) }}" class="p-4 flex hover:bg-gray-100">
+                            <x-avatar size="12" :user="$client"/>
                             <div class="flex flex-1 flex-col text-center">
-                                <p class="font-semibold text-lg">{{ $patient->name }}</p>
-                                <p class="text-xs text-gray-400">{{ $patient->email }}</p>
+                                <p class="font-semibold text-lg">{{ $client->name }}</p>
+                                <p class="text-xs text-gray-400">{{ $client->email }}</p>
                             </div>
                             <button>
                                 <x-heroicon-o-chevron-right class="w-5 h-5"/>
@@ -62,6 +62,7 @@
                     <div class="bg-orange-300 rounded-lg space-y-4">
                         <h3>Stemming</h3>
                         <p>
+{{--                            @livewire('Questionnaire.QuestionnaireList')--}}
                             Dit is een beschrijving van een questionnaire.
                         </p>
                         <button>

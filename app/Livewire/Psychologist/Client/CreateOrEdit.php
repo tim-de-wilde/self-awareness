@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Psychologist\Patient;
+namespace App\Livewire\Psychologist\Client;
 
 use App\Enums\Gender;
 use App\Enums\Role;
@@ -15,23 +15,23 @@ class CreateOrEdit extends Component
 {
     use HandlesRedirects;
 
-    public ?User $patient = null;
+    public ?User $client = null;
 
     public array $data = [];
 
     public function mount(): void
     {
-        $patient = $this->patient;
+        $client = $this->client;
 
-        if ($patient instanceof User) {
-            $this->data = ['birth_date' => $patient->birth_date->format('Y-m-d')] + $patient->toArray();
+        if ($client instanceof User) {
+            $this->data = ['birth_date' => $client->birth_date->format('Y-m-d')] + $client->toArray();
         }
     }
 
     public function render(): View
     {
-        return view('livewire.psychologist.patient.create-or-edit', [
-            'patient' => $this->patient,
+        return view('livewire.psychologist.client.create-or-edit', [
+            'client' => $this->client,
         ]);
     }
 
@@ -39,8 +39,8 @@ class CreateOrEdit extends Component
     {
         $emailRule = Rule::unique('users', 'email');
 
-        if ($this->patient instanceof User) {
-            $emailRule = $emailRule->ignore($this->patient->id);
+        if ($this->client instanceof User) {
+            $emailRule = $emailRule->ignore($this->client->id);
         }
 
         return [
@@ -55,19 +55,19 @@ class CreateOrEdit extends Component
 
     public function save(): void
     {
-        $patient = $this->patient;
+        $client = $this->client;
         $data = $this->validate()['data'];
 
-        if (! empty($patient->id)) {
-            $patient->update($data);
+        if (! empty($client->id)) {
+            $client->update($data);
         } else {
-            $patient = User::create(
-                ['role' => Role::Patient] + $data
+            $client = User::create(
+                ['role' => Role::Client] + $data
             );
         }
 
-        $this->redirectRoute('psychologist.patient.show', [
-            'patient' => $patient->id
+        $this->redirectRoute('psychologist.client.show', [
+            'client' => $client->id
         ]);
     }
 }
