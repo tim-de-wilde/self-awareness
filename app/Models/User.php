@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -43,17 +44,17 @@ class User extends Authenticatable
     ];
 
     /**
-     * All psychologist's patients.
+     * All psychologist's clients
      *
      * @return BelongsToMany
      */
-    public function patients(): BelongsToMany
+    public function clients(): BelongsToMany
     {
         return $this->belongsToMany(
             self::class,
             'treatment_plans',
             'psychologist_id',
-            'patient_id',
+            'client_id',
         );
     }
 
@@ -67,8 +68,8 @@ class User extends Authenticatable
         return $this->hasMany(Questionnaire::class);
     }
 
-    public function patientTreatmentPlans(): BelongsTo
+    public function clientTreatmentPlans(): HasOne
     {
-        return $this->belongsTo(TreatmentPlan::class, 'patient_id');
+        return $this->hasOne(TreatmentPlan::class, 'client_id');
     }
 }

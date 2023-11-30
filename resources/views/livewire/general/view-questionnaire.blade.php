@@ -9,7 +9,7 @@
             </div>
 
             <div class="flex justify-center">
-                <a href="{{ route('dashboard') }}" class="p-2 rounded-lg bg-sky-400 text-lg inline-flex justify-center w-[200px]">
+                <a href="{{ route('client.dashboard') }}" class="p-2 rounded-lg bg-sky-400 text-lg inline-flex justify-center w-[200px]">
                     {{ __('Back to questions') }}
                 </a>
             </div>

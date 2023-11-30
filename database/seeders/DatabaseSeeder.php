@@ -28,12 +28,12 @@ class DatabaseSeeder extends Seeder
              ->create();
 
          for ($i = 0; $i < 10; $i++) {
-             $patient = User::factory()
-                 ->role(Role::Patient)
+             $client = User::factory()
+                 ->role(Role::Client)
                  ->create();
 
              $treatmentPlan = TreatmentPlan::factory()->create([
-                 'patient_id' => $patient->id,
+                 'client_id' => $client->id,
                  'psychologist_id' => $psychologist->id,
                  'parent_id' => $parent->id,
              ]);

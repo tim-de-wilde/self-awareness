@@ -2,12 +2,12 @@
     <div class="py-12 space-y-4">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <div class="flex space-x-2">
-                <x-anchor-button :href="route('psychologist.patient.edit', ['patient' => $patient->id])">
+                <x-anchor-button :href="route('psychologist.client.edit', ['client' => $client->id])">
                     {{ __('Edit') }}
                 </x-anchor-button>
 
                 <form
-                    action="{{ route('psychologist.patient.delete', ['patient' => $patient->id]) }}"
+                    action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}"
                     method="post">
                     @csrf
                     <x-danger-button>
@@ -18,17 +18,17 @@
 
             {{-- Avatar and contact information. --}}
             <div class="flex space-x-4">
-                <x-avatar :user="$patient" size="16"/>
+                <x-avatar :user="$client" size="16"/>
 
                 <div class="flex-1 space-y-2">
                     <x-text-container>
-                        {{ $patient->name }}
+                        {{ $client->name }}
                     </x-text-container>
                     <x-text-container>
-                        {{ $patient->last_name }}
+                        {{ $client->last_name }}
                     </x-text-container>
                     <x-text-container>
-                        {{ $patient->email }}
+                        {{ $client->email }}
                     </x-text-container>
                 </div>
             </div>
@@ -36,13 +36,13 @@
             {{-- Gender, age and phone number. --}}
             <div class="flex space-x-4">
                 <x-text-container>
-                    {{ $patient->gender->label() }}
+                    {{ $client->gender->label() }}
                 </x-text-container>
                 <x-text-container>
-                    {{ $patient->birth_date->format('d-m-Y') }}
+                    {{ $client->birth_date->format('d-m-Y') }}
                 </x-text-container>
                 <x-text-container>
-                    {{ $patient->phone }}
+                    {{ $client->phone }}
                 </x-text-container>
             </div>
 
@@ -56,7 +56,7 @@
                 <h3>{{ __('Beschrijving') }}</h3>
 
                 <p>
-                    {{ $patient->description }}
+                    {{ $client->description }}
                 </p>
             </x-text-container>
         </div>
