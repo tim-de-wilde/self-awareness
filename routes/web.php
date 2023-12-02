@@ -28,5 +28,13 @@ Route::middleware('auth')->group(function () {
 Route::get('/questionnaire/{questionnaire}', [QuestionnaireController::class, 'index'])
     ->middleware(['auth'])
     ->name('questionnaire.index');
+
+    Route::get('/questionnaire/all/{id}', 'QuestionnaireController@show')->name('questionnaire.show');
+
+
+//routes for making back/logout icons visible and invisible in navigation
+
+Route::get('/client/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/psychologist/dashboard', 'DashboardController@index')->name('dashboard');
  
 require __DIR__.'/auth.php';

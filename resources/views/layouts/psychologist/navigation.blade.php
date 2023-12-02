@@ -7,13 +7,29 @@
               <!-- Logout Button -->
                 
                 <div  class="shrink-0 flex items-center">
-                <form method="POST" action="{{ route('logout') }}">
-                  @csrf
-                    <a href="{{ route('logout') }}">
-                     <x-heroicon-o-arrow-left-on-rectangle :href="route('logout')" onclick="event.preventDefault();  this.closest('form').submit();" class="h-7  text-gray-400  hover:text-gray-500  focus:outline-none  focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out "  />
-                    
-                    </a>
-                      </form>
+
+                
+               <!-- Logout Icon -->
+    
+    <!--Make Logout icon visible if user is on the dashboard page-->
+    @if(request()->is('psychologist/dashboard*'))
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <a href="{{ route('logout') }}">
+                <x-heroicon-o-arrow-left-on-rectangle :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
+            </a>
+        </form>
+    @endif
+
+     <!-- Going Back icon -->
+
+    <!-- Make Goingback icon visible everywhere else-->
+
+    @if(!request()->is('psychologist/dashboard*'))
+    <a href="{{ url()->previous() }}" class="ml-2">
+        <x-heroicon-o-arrow-uturn-left class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
+    </a>
+@endif
                 </div>
 
                 <!-- Navigation Links -->
