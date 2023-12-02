@@ -7,7 +7,7 @@
                 
    
                 
-    <div class="shrink-0 flex items-center">
+    <div class="shrink-0 flex items-center mt-1">
 
     <!-- Logout Icon -->
     
@@ -26,7 +26,7 @@
     <!-- Make Goingback icon visible everywhere else-->
 
     @if(!request()->is('client/dashboard*'))
-    <a href="{{ url()->previous() }}" class="ml-2">
+    <a href="{{ url()->previous() }}" >
         <x-heroicon-o-arrow-uturn-left class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
     </a>
 @endif
