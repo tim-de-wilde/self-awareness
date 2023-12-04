@@ -17,12 +17,12 @@
     }
   </script>
   <div class="h-full">
-    <div class=" h-full py-1 font-serif bg-[#E4EFEF]">
+    <div class="h-full py-2 font-serif bg-[#E4EFEF] overflow-auto">
       <div class="p-3 text-gray-900 flex justify-center  ">
         <x-avatar :user="$currentUser" size="32" /> <!---(Error) cant change the size-->
       </div>
       <!--bg-[#E4EFEF]-->
-      <div class=" overflow-hidden shadow-sm sm:rounded-lg justify-center flex">
+      <div class="overflow-hidden shadow-sm sm:rounded-lg justify-center flex">
         <!-- Info Modal-->
         <div id="" class="w-10/12 cursor-pointer ">
           <!-- Flex Container for Name and Icon -->
@@ -63,11 +63,10 @@
 
           @php($cardColors = ['orange', 'orange', 'orange'])
 
-          @forelse($questionnaires as $questionnaire)
-            @php($color = \Illuminate\Support\Arr::random($cardColors))
+          @forelse($questionnaireColorGroup as $group)
             <x-questionnaire-overview-card
-                    :color="$color"
-                    :questionnaire="$questionnaire"/>
+                :color="$group['color']"
+                :questionnaire="$group['questionnaire']"/>
           @empty
             <span class="italic">
               Er zijn momenteel geen vragenlijsten beschikbaar.
