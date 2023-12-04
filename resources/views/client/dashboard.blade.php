@@ -19,7 +19,7 @@
   <div class="h-full">
     <div class="h-full py-2 font-serif bg-[#E4EFEF] overflow-auto">
       <div class="p-3 text-gray-900 flex justify-center  ">
-        <x-avatar :user="$currentUser" size="12" /> <!---(Error) cant change the size-->
+        <x-avatar :user="$currentUser" style="height: 100px; width: 100px" /> <!---(Error) cant change the size-->
       </div>
       <!--bg-[#E4EFEF]-->
       <div class="overflow-hidden shadow-sm sm:rounded-lg justify-center flex">

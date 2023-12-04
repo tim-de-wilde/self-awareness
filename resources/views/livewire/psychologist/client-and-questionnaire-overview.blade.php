@@ -42,7 +42,7 @@
                 <div class="divide-y divide-gray-200 overflow-auto">
                     @foreach($clients as $client)
                         <a href="{{ route('psychologist.client.show', ['client' => $client->id]) }}" class="p-4 flex hover:bg-gray-100">
-                            <x-avatar :user="$client" size="12"/>
+                            <x-avatar :user="$client" style="height: 50px; width: 50px"/>
                             <div class="flex flex-1 flex-col text-center">
                                 <p class="font-semibold text-lg">{{ $client->name }}</p>
                                 <p class="text-xs text-gray-400">{{ $client->email }}</p>

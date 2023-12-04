@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
          $client = User::factory()
              ->role(Role::Client)
+             ->has(School::factory())
              ->create([
                  'email' => 'client@example.com'
              ]);
