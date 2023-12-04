@@ -68,7 +68,7 @@ class User extends Authenticatable
         return $this->hasMany(Questionnaire::class);
     }
 
-    public function clientTreatmentPlans(): HasOne
+    public function clientTreatmentPlan(): HasOne
     {
         return $this->hasOne(TreatmentPlan::class, 'client_id');
     }
@@ -78,8 +78,11 @@ class User extends Authenticatable
 
     public function parent(): HasManyThrough
     {
-        return $this->hasManyThrough(TreatmentPlan::class, User::class, 'id','client_id');
+        return $this->hasManyThrough(
+            TreatmentPlan::class,
+            User::class,
+            'id',
+            'client_id'
+        );
     }
-
-
 }

@@ -6,28 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use function Webmozart\Assert\Tests\StaticAnalysis\string;
 
 class DashboardController extends Controller
 {
-
-    private function getPatent()
+    private function getParent(): User
     {
-        $parent_id= Auth::user()->parent()->first()->toArray()['parent_id'];
-        $parent= User::where('id',$parent_id)->first(['name','last_name']);
-        return ($parent['name']. " " . $parent["last_name"]);
+        /** @var User $user */
+        $user = Auth::user();
 
+        $treatmentPlan = $user->clientTreatmentPlan()->first();
+
+        /** @var User $parent */
+        $parent = User::query()->find(
+            $treatmentPlan->parent_id
+        );
+
+        return $parent;
     }
     public function index(): View
     {
-
-        $treatmentPlan = Auth::user()->clientTreatmentPlans()->first();
+        $treatmentPlan = Auth::user()->clientTreatmentPlan()->first();
 
         return view('client.dashboard', [
             'questionnaires' => $treatmentPlan?->questionnaires()->get(),
             'currentUser' => Auth::user(),
-            'school' => Auth::user()->school()->first('school')['school'],
-            "parent"=> $this->getPatent()
+            'schoolName' => Auth::user()->school()->first()?->school,
+            "parent"=> $this->getParent(),
         ]);
     }
 }
