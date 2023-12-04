@@ -1,4 +1,4 @@
-<div class="pt-8" x-data="{ tabs: {clients: 'c', questionnaires: 'q'}, currentTab: 'c', showSearchInput: false }">
+<div class="pt-8 h-full" x-data="{ tabs: {clients: 'c', questionnaires: 'q'}, currentTab: 'c', showSearchInput: false }">
     {{-- Floating button new client --}}
     <x-floating-anchor x-show="currentTab === tabs.clients" :href="route('psychologist.client.create')">
         <x-heroicon-o-plus class="w-6 h-6"/>
@@ -10,9 +10,9 @@
     </x-floating-anchor>
 
 
-    <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto pb-4 sm:px-6 lg:px-8 h-full overflow-hidden flex flex-col">
         {{-- Tabs & search button --}}
-        <div class="flex pb-8 px-4 space-x-4 items-center">
+        <div class="flex px-4 space-x-4 pb-4 items-center">
             <div x-show="! showSearchInput" class="flex bg-white rounded-full p-1" x-bind:class="{'flex-1': ! showSearchInput}">
                 <button
                         x-on:click="currentTab = tabs.clients"
@@ -37,10 +37,10 @@
             </div>
         </div>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white overflow-auto shadow-sm sm:rounded-lg flex-1">
             {{-- Client tab --}}
-            <div x-show="currentTab === tabs.clients">
-                <div class="divide-y divide-gray-200">
+            <div x-show="currentTab === tabs.clients" class="overflow-auto">
+                <div class="divide-y divide-gray-200 overflow-auto">
                     @foreach($clients as $client)
                         <a href="{{ route('psychologist.client.show', ['client' => $client->id]) }}" class="p-4 flex hover:bg-gray-100">
                             <x-avatar size="12" :user="$client"/>
@@ -57,7 +57,7 @@
             </div>
 
             {{-- Questionnaire tab --}}
-            <div x-show="currentTab === tabs.questionnaires">
+            <div x-show="currentTab === tabs.questionnaires" class="overflow-hidden">
                 <div class="space-y-4">
                     <div class="bg-orange-300 rounded-lg space-y-4">
                         <h3>Stemming</h3>
