@@ -48,13 +48,13 @@
               <x-heroicon-o-envelope class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">School:</span>
             </div>
-            <span class="font-serif block mt-2 ml-1">Dollard College</span>
+            <span class="font-serif block mt-2 ml-1">{{$schoolName}}</span>
             <hr class="border-t border-gray-300 my-5">
             <div class="flex items-center">
               <x-heroicon-o-user class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">Parent:</span>
             </div>
-            <span class="font-serif block mt-2 ml-1">Anna Wilhemls</span>
+            <span class="font-serif block mt-2 ml-1">{{$parent->name . ' ' . $parent->last_name}}</span>
             <hr class="border-t border-gray-300 my-5">
           </div>
           <div class="items-center flex justify-center mx-auto my-5 bg-[#B9DDD8]">
