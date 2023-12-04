@@ -21,12 +21,12 @@ class Line extends Component
 
     public function mount(User $client)
     {
-        $this->treatmentPlan= $client->clientTreatmentplan()->first()->get()->where('client_id','=',$client->id)->toArray();
-        dump($this->treatmentPlan);
-            die();
-        $this->answers= Answer::all()->where('treatment_plan_id','=', $this->treatmentPlan['attribute']['id']);
-        dump($this->answers);
+        /** @var TreatmentPlan $treatmentPlan */
+        $treatmentPlan = $client->clientTreatmentPlan()->first();
 
+        dd(
+            $treatmentPlan->answers()->get()
+        );
     }
     //this function should be part of a controller for the entire graph functionality.
     private function getData(int $userView, int $questionnaireId, int $questionId=-1) : Collection

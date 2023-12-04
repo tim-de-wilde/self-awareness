@@ -15,8 +15,8 @@ class TreatmentPlan extends Model
     {
         return $this->belongsToMany(Questionnaire::class);
     }
-    public function answers(): HasMany{
-        return $this->HasMany(Answer::class,'treatment_plan_id');
+    public function answers(): HasMany
+    {
+        return $this->HasMany(Answer::class);
     }
-
 }

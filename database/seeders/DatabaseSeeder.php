@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Questionnaire;
 use App\Models\TreatmentPlan;
@@ -40,13 +41,24 @@ class DatabaseSeeder extends Seeder
                  'parent_id' => $parent->id,
              ]);
 
-             $school = School::factory()
-                 ->create(['client_id' => $client->id]);
-
              $questionnaires = Questionnaire::factory(3)
                  ->has(Question::factory(5))
                  ->create();
+
              $treatmentPlan->questionnaires()->saveMany($questionnaires);
+
+             foreach ($questionnaires[0]->questions()->get() as $question) {
+                 Answer::factory()
+                     ->create([
+                         'user_id' => $client->id,
+                         'questionnaire_id' => $questionnaires[0]->id,
+                         'question_id' => $question->id,
+                         'treatment_plan_id' => $treatmentPlan->id,
+                     ]);
+             }
+
+             $school = School::factory()
+                 ->create(['client_id' => $client->id]);
          }
     }
 }
