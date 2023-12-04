@@ -16,13 +16,13 @@
       console.log("Chevron geklickt!");
     }
   </script>
-  <div class="h-full">
-    <div class="h-full py-2 font-serif bg-[#E4EFEF] overflow-auto">
+  <body>
+    <div class="py-1 font-serif bg-[#E4EFEF] ">
       <div class="p-3 text-gray-900 flex justify-center  ">
-        <x-avatar :user="$currentUser" size="12" /> <!---(Error) cant change the size-->
+        <x-avatar :user="$currentUser" size="12" class="custom-avatar-size" /> <!---(Error) cant change the size-->
       </div>
       <!--bg-[#E4EFEF]-->
-      <div class="overflow-hidden shadow-sm sm:rounded-lg justify-center flex">
+      <div class=" overflow-hidden shadow-sm sm:rounded-lg justify-center flex">
         <!-- Info Modal-->
         <div id="" class="w-10/12 cursor-pointer ">
           <!-- Flex Container for Name and Icon -->
@@ -48,30 +48,52 @@
               <x-heroicon-o-envelope class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">School:</span>
             </div>
-            <span class="font-serif block mt-2 ml-1">{{$schoolName}}</span>
+            <span class="font-serif block mt-2 ml-1">Dollard College</span>
             <hr class="border-t border-gray-300 my-5">
             <div class="flex items-center">
               <x-heroicon-o-user class="h-5 text-gray-800" />
               <span class="font-bold text-lg ml-2">Parent:</span>
             </div>
-            <span class="font-serif block mt-2 ml-1">{{$parent->name . ' ' . $parent->last_name}}</span>
+            <span class="font-serif block mt-2 ml-1">Anna Wilhemls</span>
             <hr class="border-t border-gray-300 my-5">
           </div>
           <div class="items-center flex justify-center mx-auto my-5 bg-[#B9DDD8]">
             <span class="font-bold text-1xl ">Vragen</span>
           </div>
-
-          @php($cardColors = ['orange', 'orange', 'orange'])
-
-          @forelse($questionnaireColorGroup as $group)
-            <x-questionnaire-overview-card
-                :color="$group['color']"
-                :questionnaire="$group['questionnaire']"/>
-          @empty
-            <span class="italic">
-              Er zijn momenteel geen vragenlijsten beschikbaar.
-            </span>
-          @endforelse
+          <!--Card-1-->
+          <div class=" p-1 mt-5  mx-auto bg-[#FAE7CD] shadow-lg  overflow-hidden rounded-2xl relative">
+            <div class="p-4">
+              <!-- Titel -->
+              <h2 class="text-2xl font-extrabold mb-3">Stemming</h2>
+              <!-- Beschreibung -->
+              <p class=" font-thin  text-gray-700  mb-4 "> Deze vragen helpen u bij uw stemming. </p>
+              <!-- Button -->
+              <button class="bg-[#E1A24C] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
+            </div>
+          </div>
+          <!--Card-2-->
+          <div class=" p-1 my-5 mx-auto bg-[#FCDDCC] shadow-lg  overflow-hidden rounded-2xl relative">
+            <div class="p-4">
+              <!-- Titel -->
+              <h2 class="text-2xl font-extrabold mb-3">Gevoel</h2>
+              <!-- Beschreibung -->
+              <p class=" font-thin  text-gray-700  mb-4 "> Deze vragen helpen u bij uw gevoelens. </p>
+              <!-- Button -->
+              <button class="bg-[#FFA26F] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
+            </div>
+          </div>
+          <!--Card-3-->
+          <div class=" p-1 my-5 mx-auto bg-[#E5EBC0] shadow-lg  overflow-hidden rounded-2xl relative">
+            <div class="p-4">
+              <!-- Titel -->
+              <h2 class="text-2xl font-extrabold mb-3">Gepersonaliseerd</h2>
+              <!-- Beschreibung -->
+              <p class=" font-thin  text-gray-700  mb-4 "> Dit zijn gepersonaliseerde vragen. </p>
+              <!-- Button -->
+              <button class="bg-[#C1CE73] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
+            </div>
+          </div>
+          <!--Here comes more cards-->
         </div>
       </div>
     </div>
@@ -99,6 +121,11 @@
       #arrowButton.top {
         transform: rotate(180deg);
       }
+
+      .custom-avatar-size {
+        width: 95px;
+        height: 80px;
+      }
     </style>
-  </div>
+  </body>
 </x-app-layout>

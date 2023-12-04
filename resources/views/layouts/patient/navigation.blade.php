@@ -3,32 +3,37 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                <div class="shrink-0 flex items-center mt-1">
 
-                    <!-- Logout Icon -->
-    
-                    <!--Make Logout icon visible if user is on the dashboard page-->
-                    @if(request()->is('client/dashboard*'))
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <a href="{{ route('logout') }}">
-                                <x-heroicon-o-arrow-left-on-rectangle :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();" class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
-                            </a>
-                        </form>
-                    @endif
-
-                    <!-- Going Back icon -->
-                    <!-- Make Goingback icon visible everywhere else-->
-                    @if(!request()->is('client/dashboard*'))
-                        <a href="{{ url()->previous() }}" >
-                            <x-heroicon-o-arrow-uturn-left class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
-                        </a>
-                    @endif
+                
+                <!-- Logout Button -->
+                
+                <div  class="shrink-0 flex items-center">
+                <form method="POST" action="{{ route('logout') }}">
+                  @csrf
+                    <a href="{{ route('logout') }}">
+                     <x-heroicon-o-arrow-left-on-rectangle :href="route('logout')" onclick="event.preventDefault();  this.closest('form').submit();" class="h-7  text-gray-400  hover:text-gray-500  focus:outline-none  focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out "  />
+                    
+                    </a>
+                      </form>
                 </div>
+              
+
+              <!--
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-responsive-nav-link :href="route('logout')"
+                                           onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+              -->
+
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
@@ -57,7 +62,10 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+
+                            <x-dropdown-link :href="route('logout')"
+                                             onclick="event.preventDefault();
+                                                this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
@@ -80,7 +88,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('client.dashboard')" :active="request()->routeIs('client.dashboard')">
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
