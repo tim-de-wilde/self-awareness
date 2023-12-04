@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-xl mx-5">
+        <div class="bg-white shadow-sm sm:rounded-xl flex-1 mx-5 overflow-auto">
             {{-- Client tab --}}
             <div x-show="currentTab === tabs.clients" class="overflow-auto">
                 <div class="divide-y divide-gray-200 overflow-auto">
