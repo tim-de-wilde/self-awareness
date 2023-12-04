@@ -6,6 +6,8 @@ use App\Enums\Role;
 use App\Models\Question;
 use App\Models\Questionnaire;
 use App\Models\TreatmentPlan;
+use App\Models\School;
+
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +35,7 @@ class DatabaseSeeder extends Seeder
                  'email' => 'client@example.com'
              ]);
 
-         $treatmentPlan = $client->clientTreatmentPlans()->save(
+         $treatmentPlan = $client->clientTreatmentPlan()->save(
              TreatmentPlan::factory()->create([
                  'client_id' => $client->id,
                  'psychologist_id' => $psychologist->id,
@@ -58,10 +60,12 @@ class DatabaseSeeder extends Seeder
                  'parent_id' => $parent->id,
              ]);
 
+             $school = School::factory()
+                 ->create(['client_id' => $client->id]);
+
              $questionnaires = Questionnaire::factory(3)
                  ->has(Question::factory(5))
                  ->create();
-
              $treatmentPlan->questionnaires()->saveMany($questionnaires);
          }
     }

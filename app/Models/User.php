@@ -68,8 +68,21 @@ class User extends Authenticatable
         return $this->hasMany(Questionnaire::class);
     }
 
-    public function clientTreatmentPlans(): HasOne
+    public function clientTreatmentPlan(): HasOne
     {
         return $this->hasOne(TreatmentPlan::class, 'client_id');
+    }
+    public function school(): HasOne{
+        return $this->hasOne(School::class, "client_id");
+    }
+
+    public function parent(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            TreatmentPlan::class,
+            User::class,
+            'id',
+            'client_id'
+        );
     }
 }
