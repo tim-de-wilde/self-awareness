@@ -42,7 +42,7 @@ class Line extends Component
 
 
     }
-
+    public function 
     public function render()
     {
         dump($this->answers);
