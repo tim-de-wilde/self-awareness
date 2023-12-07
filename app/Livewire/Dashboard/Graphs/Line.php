@@ -7,9 +7,10 @@ use App\Models\TreatmentPlan;
 use App\Models\User;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-use PhpParser\Node\Expr\Array_;
-use Tests\Fixtures\Model;
+use function Laravel\Prompts\select;
+use function Laravel\Prompts\table;
 
 class Line extends Component
 {
@@ -17,36 +18,60 @@ class Line extends Component
     public array $treatmentPlan;
 
 
-
-
     public function mount(User $client)
     {
         /** @var TreatmentPlan $treatmentPlan */
         $treatmentPlan = $client->clientTreatmentPlan()->first();
 
-        dd(
-            $treatmentPlan->answers()->get()
-        );
+        $this->answers= $treatmentPlan->answers()->get();
+
+
     }
-    //this function should be part of a controller for the entire graph functionality.
-    private function getData(int $userView, int $questionnaireId, int $questionId=-1) : Collection
+    public function listPersons(): array
     {
-        if ($questionId==-1){
-            return $this->answers->where(['questionnaire_id', '=', $questionnaireId ],['user_id','=',$userView]);
-        }
-        else{
-            return $this->answers->where(['questionnaire_id', '=', $questionnaireId ],['question_id','=',$questionId],['user_id','=',$userView]);
-        }
+         $persons= array();
+         $query= $this->answers->unique('user_id')->values()->toArray();
+         foreach ($query as $element)
+         {
+             DB::table('users')->select(['name,las_name'])->get();
 
+           //get the name and lastname based on the ids form the $element
+             //add them to the array
 
-
+         }
+     return $persons;
 
     }
-    public function 
+    public function listQuestionnaires(): array
+    {
+        $listQuestionnaires=[];
+        return $listQuestionnaires;
+    }
+    public function listQuestions($questionnaireId): array
+    {
+        $listQuestions = [];
+        DB::table('questions');
+        //get the questions from the questionnaire
+        // add them to a multi-dimensional array with id, title
+
+        return $listQuestions;
+    }
+
+
+
+
+    //this function should be part of a controller for the entire graph functionality.
+    public function getData(int $userView, int $questionnaireId, int $questionId=-1) : Collection
+    {
+        if ($questionId == -1) {
+            return $this->answers->where(['questionnaire_id', '=', $questionnaireId], ['user_id', '=', $userView]);
+        } else {
+            return $this->answers->where(['questionnaire_id', '=', $questionnaireId], ['question_id', '=', $questionId], ['user_id', '=', $userView]);
+        }
+    }
     public function render()
     {
-        dump($this->answers);
-        dump($this->getData(5,7));
+        $this->listPersons();
         return view('livewire.dashboard.graphs.line');
     }
 }
