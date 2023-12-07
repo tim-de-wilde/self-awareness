@@ -31,6 +31,19 @@ class Line extends Component
     {
          $persons= array();
          $query= $this->answers->unique('user_id')->values()->toArray();
+
+
+         $names = $this->answers->map(
+             function (Answer $answer) {
+                 $user = $answer->user()->get();
+                 return [
+                     'first_name' => $user->name,
+                     'last_name' => $user->last_name,
+                 ];
+             }
+         );
+
+
          foreach ($query as $element)
          {
              DB::table('users')->select(['name,las_name'])->get();
