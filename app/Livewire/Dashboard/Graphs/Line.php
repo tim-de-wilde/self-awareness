@@ -24,18 +24,12 @@ class Line extends Component
         $treatmentPlan = $client->clientTreatmentPlan()->first();
 
         $this->answers= $treatmentPlan->answers()->get();
-
-
     }
     public function listPersons(): array
     {
-         $persons= array();
-         $query= $this->answers->unique('user_id')->values()->toArray();
-
-
          $names = $this->answers->map(
              function (Answer $answer) {
-                 $user = $answer->user()->get();
+                 $user = $answer->user()->first();
                  return [
                      'first_name' => $user->name,
                      'last_name' => $user->last_name,
@@ -43,17 +37,7 @@ class Line extends Component
              }
          );
 
-
-         foreach ($query as $element)
-         {
-             DB::table('users')->select(['name,las_name'])->get();
-
-           //get the name and lastname based on the ids form the $element
-             //add them to the array
-
-         }
-     return $persons;
-
+         return $names->toArray();
     }
     public function listQuestionnaires(): array
     {
