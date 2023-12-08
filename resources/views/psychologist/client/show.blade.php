@@ -1,5 +1,7 @@
+<!--psy client editpage-->
+
 <x-app-layout role="psychologist">
-    <div class="py-12 space-y-4">
+    <div class="py-12 space-y-4 px-10">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <div class="flex space-x-2">
                 <x-anchor-button :href="route('psychologist.client.edit', ['client' => $client->id])">
@@ -22,7 +24,7 @@
 
                 <div class="flex-1 space-y-2">
                     <x-text-container>
-                        {{ $client->name }}
+                        {{ $client->name }}  
                     </x-text-container>
                     <x-text-container>
                         {{ $client->last_name }}
