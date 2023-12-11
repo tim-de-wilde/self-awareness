@@ -32,9 +32,6 @@ Route::post('/clients/{client}/delete', [ClientController::class, 'delete'])
 Route::get('/questionnaires/create', [QuestionnaireController::class, 'create'])
     ->name('psychologist.questionnaire.create');
 
-Route::post('/questionnaires/create', [QuestionnaireController::class, 'store'])
-    ->name('psychologist.questionnaire.store');
-
 Route::get('/questionnaires/{questionnaire}', [QuestionnaireController::class, 'show'])
     ->name('psychologist.questionnaire.show');
 

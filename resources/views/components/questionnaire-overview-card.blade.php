@@ -1,4 +1,4 @@
-@props(['questionnaire', 'color'])
+@props(['questionnaire', 'color', 'link'])
 
 @php($colors = [
     'orange' => ['#FAE7CD', '#E1A24C'],
@@ -16,7 +16,7 @@
         </p>
 
         <!-- Button -->
-        <a href="{{ route('questionnaire.index', ['questionnaire' => $questionnaire->id]) }}" class="bg-[{{ $colors[$color][1] }}] active:bg-[#6600ff] hover:bg-[#6666ff] text-white font-bold py-2 px-4 rounded mt-4">
+        <a href="{{ $link ?? route('questionnaire.index', ['questionnaire' => $questionnaire->id]) }}" class="bg-[{{ $colors[$color][1] }}] active:bg-[#6600ff] hover:bg-[#6666ff] text-white font-bold py-2 px-4 rounded mt-4">
             Naar vragen
         </a>
     </div>
