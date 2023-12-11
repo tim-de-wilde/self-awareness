@@ -24,28 +24,14 @@ class QuestionnaireController extends Controller
 
     public function create(): View
     {
-        return view('psychologist.questionnaire.createOrEdit');
+        return view('psychologist.questionnaire.create');
     }
 
     public function edit(Questionnaire $questionnaire): View
     {
-        return view('psychologist.questionnaire.createOrEdit', [
+        return view('psychologist.questionnaire.edit', [
             'questionnaire' => $questionnaire,
         ]);
-    }
-
-    public function store(): RedirectResponse
-    {
-        //todo Implement
-
-        return redirect()->back();
-    }
-
-    public function update(Questionnaire $questionnaire): RedirectResponse
-    {
-        //todo Implement
-
-        return redirect()->back();
     }
 
     public function delete(Questionnaire $questionnaire): RedirectResponse

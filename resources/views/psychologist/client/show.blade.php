@@ -1,4 +1,4 @@
-<x-app-layout role="psychologist">
+<x-app-layout role="psychologist" back="{{ route('psychologist.manage.index') }}">
     <div class="py-12 space-y-4">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4">
             <div class="flex space-x-2">
@@ -6,9 +6,7 @@
                     {{ __('Edit') }}
                 </x-anchor-button>
 
-                <form
-                    action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}"
-                    method="post">
+                <form action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}" method="post">
                     @csrf
                     <x-danger-button>
                         Delete

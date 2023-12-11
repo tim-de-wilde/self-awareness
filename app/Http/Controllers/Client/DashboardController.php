@@ -26,9 +26,18 @@ class DashboardController extends Controller
     public function index(): View
     {
         $treatmentPlan = Auth::user()->clientTreatmentPlan()->first();
+        $colors = ['red', 'orange', 'green'];
+        $questionnaireColorGroup = [];
+
+        foreach ($treatmentPlan?->questionnaires()->get() ?? [] as $key => $questionnaire) {
+            $questionnaireColorGroup[] = [
+                'questionnaire' => $questionnaire,
+                'color' => $colors[$key % 3],
+            ];
+        }
 
         return view('client.dashboard', [
-            'questionnaires' => $treatmentPlan?->questionnaires()->get(),
+            'questionnaireColorGroup' => $questionnaireColorGroup,
             'currentUser' => Auth::user(),
             'schoolName' => Auth::user()->school()->first()?->school,
             "parent"=> $this->getParent(),

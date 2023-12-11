@@ -28,5 +28,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/questionnaire/{questionnaire}', [QuestionnaireController::class, 'index'])
     ->middleware(['auth'])
     ->name('questionnaire.index');
- 
+
 require __DIR__.'/auth.php';
