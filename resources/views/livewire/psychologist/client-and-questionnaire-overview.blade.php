@@ -36,12 +36,12 @@
             </div>
         </div>
 
-        <div class="bg-white shadow-sm sm:rounded-xl flex-1 mx-5 overflow-auto">
+        <div class="sm:rounded-xl flex-1 mx-5 overflow-auto">
             {{-- Client tab --}}
             <div x-show="currentTab === tabs.clients" class="overflow-auto">
                 <div class="divide-y divide-gray-200 overflow-auto">
                     @foreach($clients as $client)
-                        <a href="{{ route('psychologist.client.show', ['client' => $client->id]) }}" class="p-4 flex hover:bg-gray-100">
+                        <a href="{{ route('psychologist.client.show', ['client' => $client->id]) }}" class="p-4 flex hover:bg-gray-100 bg-white">
                             <x-avatar :user="$client" style="height: 50px; width: 50px"/>
                             <div class="flex flex-1 flex-col text-center">
                                 <p class="font-semibold text-lg">{{ $client->name }}</p>
@@ -57,40 +57,13 @@
 
             {{-- Questionnaire tab --}}
             <div x-show="currentTab === tabs.questionnaires">
-               <div class=" w-full cursor-pointer mx-auto px-5 ">
-                <!--Card-1-->
-                   <div class=" p-1 mt-5  mx-auto bg-[#FAE7CD] shadow-lg  overflow-hidden rounded-md relative">
-                       <div class="p-4">
-                           <!-- Titel -->
-                           <h2 class="text-2xl font-extrabold mb-3">Stemming</h2>
-                           <!-- Beschreibung -->
-                           <p class=" font-thin  text-gray-700  mb-4 "> Deze vragen helpen u bij uw stemming. </p>
-                           <!-- Button -->
-                           <button class="bg-[#E1A24C] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
-                       </div>
-                   </div>
-                   <!--Card-2-->
-                   <div class=" p-1 my-5 mx-auto bg-[#FCDDCC] shadow-lg  overflow-hidden rounded-md relative">
-                       <div class="p-4">
-                           <!-- Titel -->
-                           <h2 class="text-2xl font-extrabold mb-3">Gevoel</h2>
-                           <!-- Beschreibung -->
-                           <p class=" font-thin  text-gray-700  mb-4 "> Deze vragen helpen u bij uw gevoelens. </p>
-                           <!-- Button -->
-                           <button class="bg-[#FFA26F] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
-                       </div>
-                   </div>
-                   <!--Card-3-->
-                   <div class=" p-1 my-5 mx-auto bg-[#E5EBC0] shadow-lg  overflow-hidden rounded-md relative">
-                       <div class="p-4">
-                           <!-- Titel -->
-                           <h2 class="text-2xl font-extrabold mb-3">Gepersonaliseerd</h2>
-                           <!-- Beschreibung -->
-                           <p class=" font-thin  text-gray-700  mb-4 "> Dit zijn gepersonaliseerde vragen. </p>
-                           <!-- Button -->
-                           <button class="bg-[#C1CE73] hover:bg-[#62b1a6] text-white font-bold py-2 px-4 rounded mt-4"> Naar vragen </button>
-                       </div>
-                   </div>
+               <div class=" w-full cursor-pointer mx-auto px-5">
+                   @foreach($questionnairePairs as $pair)
+                       <x-questionnaire-overview-card
+                            :questionnaire="$pair['questionnaire']"
+                            :color="$pair['color']"
+                            :link="route('psychologist.questionnaire.show', ['questionnaire' => $pair['questionnaire']->id])"/>
+                   @endforeach
                </div>
             </div>
         </div>
