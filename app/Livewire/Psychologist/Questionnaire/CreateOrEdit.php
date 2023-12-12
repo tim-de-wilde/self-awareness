@@ -5,6 +5,7 @@ namespace App\Livewire\Psychologist\Questionnaire;
 use App\Models\Questionnaire;
 use App\Traits\ManagesModal;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class CreateOrEdit extends Component
@@ -13,7 +14,17 @@ class CreateOrEdit extends Component
 
     public ?Questionnaire $questionnaire = null;
 
-    public array $questions = [];
+    public array $stagedQuestions = [];
+
+    public function mount(): void
+    {
+        if ($this->questionnaire instanceof Questionnaire) {
+            $this->stagedQuestions = $this->questionnaire
+                ->questions()
+                ->get()
+                ->toArray();
+        }
+    }
 
     public function render(): View
     {
