@@ -9,12 +9,10 @@
 
     function toggleModalAndButton() {
         infoModal.classList.toggle('top');
+        arrowButton.classList.toggle('top')
     }
 
-    function handleChevronClick() {
-      // Fügen Sie hier Ihre Logik für das Klicken auf das Chevron-Icon hinzu
-      console.log("Chevron geklickt!");
-    }
+    
   </script>
   <body>
     <div class="py-1 font-serif bg-[#E4EFEF] ">

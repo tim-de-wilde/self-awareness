@@ -1,16 +1,34 @@
 <!--psy client editpage-->
 
-<form wire:submit.prevent="save" class="py-12 space-y-4">
+<form wire:submit.prevent="save" class="py-12 space-y-4 px-10">
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4 px-5">
+    <div class="items-center flex justify-center py-2 rounded-full mx-auto my-5 bg-[#B9DDD8] ">
+            <span class="font-bold text-1xl ">Cliënt editen</span>
+          </div>
+
+    <div class="flex space-x-2 invisible">
+                <x-anchor-button :href="route('psychologist.client.edit', ['client' => $client->id])">
+                    {{ __('Edit') }}
+                </x-anchor-button>
+
+                <form
+                    action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}"
+                    method="post">
+                    @csrf
+                    <x-danger-button>
+                        Delete
+                    </x-danger-button>
+                </form>
+            </div>
 
         {{-- Avatar and contact information. --}}
-        <div class="flex space-x-2 ">
+        <div class="flex space-x-4 ">
             <x-avatar :user="$client" size="16"/>
 
             <div class="flex-1 space-y-2">
                 <div>
                     <x-text-container>
-                        <input wire:model="data.name" type="text" name="name" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
+                        <input wire:model="data.name" type="text" name="name" class="form-input bg-white rounded-full mt-1 block w-full h-12 px-3 border-none focus:border-none focus:ring-0""/>
                         <x-input-error :messages="$errors->get('data.name')" class="mt-2"/>
                     </x-text-container>
                 </div>
@@ -32,7 +50,7 @@
         </div>
       
         {{-- Gender, age and phone number. --}}
-        <div class="flex space-x-2">
+        <div class="flex space-x-4">
             <x-text-container>
                 <select wire:model="data.gender" name="gender" class="form-select rounded-full  mt-1 block w-full border-none focus:border-none focus:ring-0">
                     @foreach(App\Enums\Gender::cases() as $gender)
