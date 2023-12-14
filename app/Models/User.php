@@ -86,4 +86,10 @@ class User extends Authenticatable
             'client_id'
         );
     }
+
+    //TODO Actually implement this
+    public function getParentId(): int
+    {
+        return 0;
+    }
 }
