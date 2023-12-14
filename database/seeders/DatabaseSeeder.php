@@ -116,7 +116,7 @@ class DatabaseSeeder extends Seeder
                  ->create();
 
 
-             //$treatmentPlan->questionnaires()->saveMany($questionnaires);
+             $treatmentPlan->questionnaires()->saveMany($questionnaires);
 
              foreach ($questionnaires[0]->questions()->get() as $question) {
                  Answer::factory()
