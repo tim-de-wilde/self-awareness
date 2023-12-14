@@ -55,6 +55,9 @@
                 </div>
             </div>
 
+           
+
+
             {{-- Questionnaire tab --}}
             <div x-show="currentTab === tabs.questionnaires">
                <div class=" w-full cursor-pointer mx-auto px-5">
