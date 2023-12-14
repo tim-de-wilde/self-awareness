@@ -18,7 +18,11 @@ class DatabaseSeeder extends Seeder
 
     public function run(): void
     {
+        $this->call([
+            QuestionnaireSeeder::class
+        ]);
 
+        $questionnaire = Questionnaire::query()->first();
 
          $psychologist = User::factory()
              ->role(Role::Psychologist)
@@ -63,28 +67,10 @@ class DatabaseSeeder extends Seeder
                  'parent_id' => $parent->id,
              ]);
 
-             $questionnaires = Questionnaire::factory(3)
-                 ->has(Question::factory(5))
-                 ->create();
-
-
-             $treatmentPlan->questionnaires()->saveMany($questionnaires);
-
-             foreach ($questionnaires[0]->questions()->get() as $question) {
-                 Answer::factory()
-                     ->create([
-                         'user_id' => $client->id,
-                         'questionnaire_id' => $questionnaires[0]->id,
-                         'question_id' => $question->id,
-                         'treatment_plan_id' => $treatmentPlan->id,
-                     ]);
-             }
+             $treatmentPlan->questionnaires()->save($questionnaire);
 
              $school = School::factory()
                  ->create(['client_id' => $client->id]);
          }
-         $this->call([
-             QuestionnairreSeeder::class
-         ]);
     }
 }
