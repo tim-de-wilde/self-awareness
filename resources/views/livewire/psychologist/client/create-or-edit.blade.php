@@ -1,34 +1,43 @@
+<div>
 <!--psy client editpage-->
+<script>
+// JavaScript function to submit the delete form
+function submitDeleteForm() {
+    document.getElementById('deleteForm').submit();
+}
+</script>
 
-<form wire:submit.prevent="save" class="py-12 space-y-4 px-10">
+<form wire:submit.prevent="save" class="py-12 space-y-4 px-4">
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8 space-y-4 px-5">
-    <div class="items-center flex justify-center py-2 rounded-full mx-auto my-5 bg-[#B9DDD8] ">
-            <span class="font-bold text-1xl ">Cliënt editen</span>
+            <div class="flex">
+      <div class="items-center flex justify-center py-2 rounded-full mx-auto my-5 w-10/12 bg-[#B9DDD8] ">
+            <span class="font-bold text-1xl ">{{ ($client === null) ? 'VOEG EEN KLANT TOE' : 'Client Editen' }} </span>
+
+          </div>
+           <div class="items-center flex justify-center py-2 rounded-full mx-auto my-5 w-1/12 bg-[#B9DDD8]  hover:bg-red-400  active:bg-red-600">
+           <button id="arrowButton" class="focus:outline-none py-1" 
+            onclick="submitDeleteForm()">
+        <x-heroicon-s-trash class="h-5 text-gray-800" />
+    </button> 
+
+    @if($client !== null) <form id="deleteForm" action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}" method="post" style="display: none;">
+    @csrf
+    <!-- Add any other necessary hidden inputs -->
+</form>
+@endif
+          </div>
           </div>
 
-    <div class="flex space-x-2 invisible">
-                <x-anchor-button :href="route('psychologist.client.edit', ['client' => $client->id])">
-                    {{ __('Edit') }}
-                </x-anchor-button>
-
-                <form
-                    action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}"
-                    method="post">
-                    @csrf
-                    <x-danger-button>
-                        Delete
-                    </x-danger-button>
-                </form>
-            </div>
+  
 
         {{-- Avatar and contact information. --}}
         <div class="flex space-x-4 ">
-            <x-avatar :user="$client" size="16"/>
+            
 
             <div class="flex-1 space-y-2">
                 <div>
                     <x-text-container>
-                        <input wire:model="data.name" type="text" name="name" class="form-input bg-white rounded-full mt-1 block w-full h-12 px-3 border-none focus:border-none focus:ring-0""/>
+                        <input wire:model="data.name" type="text" name="name" class="form-input bg-white rounded-full mt-1 block w-full h-12 px-3 border-none focus:border-none focus:ring-0"/>
                         <x-input-error :messages="$errors->get('data.name')" class="mt-2"/>
                     </x-text-container>
                 </div>
@@ -86,9 +95,13 @@
 
         <!-- ... Weitere Felder wie 'gender', 'birth_date', 'phone', etc. ... -->
 
-        <x-primary-button class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150">
-            {{ __('Save') }}
-        </x-primary-button>
+       <div class="flex justify-center">
+    <x-primary-button class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-full h-30 text-white w-1/6 bg-[#8bbdb6] hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150 ">
+        {{ ($client === null) ? 'Add' : 'Save' }}
+    </x-primary-button>
+</div>
+
     </div>
 </form>
 
+</div>
