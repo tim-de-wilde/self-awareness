@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\Role;
+use App\Models\Answer;
 use App\Models\Question;
 use App\Models\Questionnaire;
 use App\Models\TreatmentPlan;
@@ -10,14 +11,19 @@ use App\Models\School;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+
     public function run(): void
     {
+        $this->call([
+            QuestionnaireSeeder::class
+        ]);
+
+        $questionnaire = Questionnaire::query()->first();
+
          $psychologist = User::factory()
              ->role(Role::Psychologist)
              ->create([
@@ -31,6 +37,7 @@ class DatabaseSeeder extends Seeder
 
          $client = User::factory()
              ->role(Role::Client)
+             ->has(School::factory())
              ->create([
                  'email' => 'client@example.com'
              ]);
@@ -60,13 +67,10 @@ class DatabaseSeeder extends Seeder
                  'parent_id' => $parent->id,
              ]);
 
+             $treatmentPlan->questionnaires()->save($questionnaire);
+
              $school = School::factory()
                  ->create(['client_id' => $client->id]);
-
-             $questionnaires = Questionnaire::factory(3)
-                 ->has(Question::factory(5))
-                 ->create();
-             $treatmentPlan->questionnaires()->saveMany($questionnaires);
          }
     }
 }

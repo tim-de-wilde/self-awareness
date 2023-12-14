@@ -9,6 +9,7 @@ class AppLayout extends Component
 {
     public function __construct(
         public string $role,
+        public ?string $back = null,
     )
     {}
 

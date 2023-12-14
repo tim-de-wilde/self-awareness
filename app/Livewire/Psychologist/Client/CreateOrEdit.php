@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
 use Livewire\Component;
@@ -61,9 +62,15 @@ class CreateOrEdit extends Component
         if (! empty($client->id)) {
             $client->update($data);
         } else {
+            /** @var User $client */
             $client = User::create(
                 ['role' => Role::Client] + $data
             );
+
+            $client->clientTreatmentPlan()->create([
+                'psychologist_id' => Auth::id(),
+                'parent_id' => $client->getParentId(),
+            ]);
         }
 
         $this->redirectRoute('psychologist.client.show', [

@@ -72,8 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(TreatmentPlan::class, 'client_id');
     }
-    public function school(): HasOne{
-        return $this->hasOne(School::class, "client_id");
+    public function school(): HasOne
+    {
+        return $this->hasOne(School::class, 'client_id');
     }
 
     public function parent(): HasManyThrough
@@ -84,5 +85,11 @@ class User extends Authenticatable
             'id',
             'client_id'
         );
+    }
+
+    //TODO Actually implement this
+    public function getParentId(): int
+    {
+        return 0;
     }
 }

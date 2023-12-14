@@ -64,6 +64,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('question_id');
             $table->foreignId('questionnaire_id');
+            $table->integer('order')->default(0);
         });
 
         Schema::create('answers', function (Blueprint $table) {
