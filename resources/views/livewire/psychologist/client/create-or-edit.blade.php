@@ -37,21 +37,21 @@ function submitDeleteForm() {
             <div class="flex-1 space-y-2">
                 <div>
                     <x-text-container>
-                        <input wire:model="data.name" type="text" name="name" class="form-input bg-white rounded-full mt-1 block w-full h-12 px-3 border-none focus:border-none focus:ring-0"/>
+                        <input wire:model="data.name" placeholder="{{__('First name')}}" type="text" name="name" class="form-input bg-white rounded-full mt-1 block w-full h-12 px-3 border-none focus:border-none focus:ring-0"/>
                         <x-input-error :messages="$errors->get('data.name')" class="mt-2"/>
                     </x-text-container>
                 </div>
 
                 <div>
                     <x-text-container>
-                        <input wire:model="data.last_name" type="text" name="last_name" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
+                        <input wire:model="data.last_name" placeholder="{{__('Last name')}}" type="text" name="last_name" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
                         <x-input-error :messages="$errors->get('data.last_name')" class="mt-2"/>
                     </x-text-container>
                 </div>
                 
                 <div>
                     <x-text-container>
-                        <input wire:model="data.email" type="email" name="email" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
+                        <input wire:model="data.email" placeholder="{{__('Email')}}" type="email" name="email" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
                         <x-input-error :messages="$errors->get('data.email')" class="mt-2"/>
                     </x-text-container>
                 </div>
@@ -77,7 +77,7 @@ function submitDeleteForm() {
             </x-text-container>
 
             <x-text-container>
-                <input wire:model="data.phone" type="text" name="phone" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
+                <input wire:model="data.phone" type="text" name="phone" placeholder="{{ __('Phone') }}" class="form-input rounded-md  mt-1 block w-full border-none focus:border-none focus:ring-0"/>
                 <x-input-error :messages="$errors->get('data.phone')" class="mt-2"/>
             </x-text-container>
         </div>
