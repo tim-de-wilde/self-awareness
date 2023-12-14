@@ -33,7 +33,7 @@ class Graph extends Component
                 ];
             }
         );
-        dump($names);
+
         return $names;
     }
 
