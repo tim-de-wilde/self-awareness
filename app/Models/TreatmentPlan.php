@@ -10,6 +10,8 @@ class TreatmentPlan extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function questionnaires(): BelongsToMany
     {
         return $this->belongsToMany(Questionnaire::class);
