@@ -7,17 +7,30 @@ use App\Models\Questionnaire;
 use App\Traits\ManagesModal;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Livewire\Component;
+use Livewire\Features\SupportRedirects\HandlesRedirects;
 
 class CreateOrEdit extends Component
 {
     use ManagesModal;
 
+    use HandlesRedirects;
+
     public ?Questionnaire $questionnaire = null;
+
+    public array $stagedQuestionnaireData = [];
 
     public array $stagedQuestions = [];
 
-    public array $stagedQuestionData = [];
+    public array $stagedQuestion = [];
+
+    protected array $rules = [
+        'stagedQuestionnaireData.name' => 'required|string',
+        'stagedQuestionnaireData.description' => 'nullable|string',
+        'stagedQuestions' => 'array',
+    ];
 
     public function mount(): void
     {
@@ -37,25 +50,61 @@ class CreateOrEdit extends Component
                     ]
                 )
                 ->toArray();
+
+            $this->stagedQuestionnaireData = $this->questionnaire->only([
+                'name',
+                'description',
+            ]);
         }
     }
 
-    public function openModal(): void
+    public function save(): void
     {
-        $this->showModal = true;
+        $this->validate();
+
+        $questionnaire = $this->questionnaire;
+        $stagedQuestionnaire = $this->stagedQuestionnaireData;
+
+        if ($questionnaire instanceof Questionnaire) {
+            $questionnaire->update($stagedQuestionnaire);
+        } else {
+            $questionnaire = Questionnaire::create($stagedQuestionnaire + [
+                'user_id' => Auth::id(),
+            ]);
+        }
+
+        $questionnaire->questions()->delete();
+
+        foreach ($this->stagedQuestions as $question) {
+            $questionnaire->questions()->create(
+                [
+                    'title' => $question['title'],
+                    'description' => $question['description'],
+                    'asset_location' => asset('images/animals.png'),
+                ],
+                ['order' => $question['order']]
+            );
+        }
+
+        $this->back();
+    }
+
+    public function back(): void
+    {
+        $this->redirectRoute('psychologist.manage.index');
     }
 
     public function editQuestion(string $id): void
     {
-        $this->stagedQuestionData = $this->getStagedQuestionById($id);
+        $this->stagedQuestion = $this->getStagedQuestionById($id);
         $this->openModal();
     }
 
-    public function getStagedQuestionById(int $id): array
+    public function getStagedQuestionById(string $id): array
     {
         return Arr::first(
             $this->stagedQuestions,
-            fn (array $data) => $data['id'] === $id
+            fn (array $data) => (string) $data['id'] === $id
         );
     }
 
@@ -72,19 +121,31 @@ class CreateOrEdit extends Component
 
     public function saveQuestion(): void
     {
-        $stagedQuestionData = $this->stagedQuestionData;
+        //todo add file stuff
+        $this->validate([
+            'stagedQuestion.title' => 'required|string',
+            'stagedQuestion.description' => 'required|string',
+        ])['stagedQuestion'];
 
-        //todo validation
+        $stagedQuestion = $this->stagedQuestion;
 
-        $this->stagedQuestions = Arr::map($this->stagedQuestions, function (array $data) use ($stagedQuestionData) {
-            if ($data['id'] === $stagedQuestionData['id']) {
-                return $stagedQuestionData;
-            }
+        if (array_key_exists('id', $stagedQuestion)) {
+            $this->stagedQuestions = Arr::map($this->stagedQuestions, function (array $data) use ($stagedQuestion) {
+                if ((string) $data['id'] === (string) $stagedQuestion['id']) {
+                    return $stagedQuestion;
+                }
 
-            return $data;
-        });
+                return $data;
+            });
+        } else {
+            $this->stagedQuestions[] = $stagedQuestion + [
+                'id' => Str::uuid()->toString(),
+                'preview_image' => Question::getDefaultPreviewImage(),
+                'order' => count($this->stagedQuestions) + 1,
+            ];
+        }
 
-        $this->stagedQuestionData = [];
+        $this->stagedQuestion = [];
 
         $this->closeModal();
     }

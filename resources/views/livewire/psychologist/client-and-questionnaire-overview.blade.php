@@ -62,7 +62,7 @@
                        <x-questionnaire-overview-card
                             :questionnaire="$pair['questionnaire']"
                             :color="$pair['color']"
-                            :link="route('psychologist.questionnaire.show', ['questionnaire' => $pair['questionnaire']->id])"/>
+                            :link="route('psychologist.questionnaire.edit', ['questionnaire' => $pair['questionnaire']->id])"/>
                    @endforeach
                </div>
             </div>
