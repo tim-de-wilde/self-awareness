@@ -10,6 +10,8 @@ class Questionnaire extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function questions(): BelongsToMany
     {
         return $this->belongsToMany(Question::class);

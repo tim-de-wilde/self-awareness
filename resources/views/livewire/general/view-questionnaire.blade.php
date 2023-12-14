@@ -29,7 +29,7 @@
                 </div>
                 <div>
                     <input
-                            wire:model="currentValue"
+                            wire:model.live="currentValue"
                             x-ref="slider"
                             type="range"
                             min="1"

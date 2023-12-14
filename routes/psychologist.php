@@ -38,8 +38,5 @@ Route::get('/questionnaires/{questionnaire}', [QuestionnaireController::class, '
 Route::get('/questionnaires/{questionnaire}/edit', [QuestionnaireController::class, 'edit'])
     ->name('psychologist.questionnaire.edit');
 
-Route::put('/questionnaires/{questionnaire}/edit', [QuestionnaireController::class, 'update'])
-    ->name('psychologist.questionnaire.update');
-
 Route::delete('/questionnaires/{questionnaire}', [QuestionnaireController::class, 'delete'])
     ->name('psychologist.questionnaire.delete');
