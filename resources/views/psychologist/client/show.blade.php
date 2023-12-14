@@ -46,7 +46,7 @@
 
             {{-- Graphs. --}}
             <x-text-container class="mb-4">
-                Charts komen hier!
+                @livewire('Dashboard.Graphs.Line',['client'=> $client])
             </x-text-container>
 
             {{-- Description. --}}

@@ -2,7 +2,7 @@
     @if($isFinished)
         <div class="flex flex-col h-full py-6">
             <div class="flex flex-1 flex-col justify-center text-center">
-                <img src="{{ asset('images/stickers/420.png') }}" alt="Sticker">
+                <img src="{{ asset('images/stickers/fox.png') }}" alt="Sticker">
                 <p class="text-lg font-semibold">
                     {{ __('You\'ve completed this questionnaire for today. Come back tomorrow for a new one!') }}
                 </p>
