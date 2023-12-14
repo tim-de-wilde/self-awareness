@@ -5,7 +5,7 @@
 @once
     @push('scripts')
         <script type="text/javascript">
-            document.addEventListener('livewire:load', function () {
+            document.addEventListener('livewire:init', function () {
                 const Highcharts = require('highcharts')
 
                 require('highcharts/modules/exporting')(Highcharts)

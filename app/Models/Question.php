@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    public function getPreviewImage(): string
+    {
+        return asset('images/question-preview-image.png');
+    }
 }

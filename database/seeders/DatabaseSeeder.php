@@ -65,7 +65,10 @@ class DatabaseSeeder extends Seeder
                  ->create(['client_id' => $client->id]);
 
              $questionnaires = Questionnaire::factory(3)
-                 ->has(Question::factory(5))
+                 ->has(
+                     Question::factory()
+                        ->count(5)
+                 )
                  ->create();
              $treatmentPlan->questionnaires()->saveMany($questionnaires);
          }

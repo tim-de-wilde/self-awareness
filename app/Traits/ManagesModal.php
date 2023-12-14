@@ -6,12 +6,12 @@ trait ManagesModal
 {
     public bool $showModal = false;
 
-    public function showModal(): void
+    public function openModal(): void
     {
         $this->showModal = true;
     }
 
-    public function hideModal(): void
+    public function closeModal(): void
     {
         $this->showModal = false;
     }
