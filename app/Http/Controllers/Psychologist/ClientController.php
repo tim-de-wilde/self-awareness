@@ -14,8 +14,16 @@ class ClientController extends Controller
 
     public function show(User $client): View
     {
+        $questionnaireNames = $client
+            ->clientTreatmentPlan()
+            ->first()
+            ->questionnaires()
+            ?->pluck('name')
+            ?->join(', ') ?? __('none');
+
         return view('psychologist.client.show', [
             'client' => $client,
+            'questionnaireNames' => $questionnaireNames,
         ]);
     }
 
