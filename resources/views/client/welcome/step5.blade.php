@@ -24,7 +24,8 @@
             <div class="w-3 h-3 bg-[#45CDC5] rounded-full ml-1"></div>
             <div class="w-3 h-3 bg-[#45CDC5] rounded-full ml-1"></div>
             <div class="w-3 h-3 bg-[#45CDC5] rounded-full ml-1"></div>
-            <div class="w-3 h-3 bg-gray-500 rounded-full ml-1"></div>
+            <div class="w-3 h-3 bg-[#D9D9D9] rounded-full ml-1"></div>
+
           </div>
           
     
