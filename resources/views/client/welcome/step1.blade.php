@@ -13,11 +13,10 @@
     <h4 class="text-center text-2xl mt-10  font-semibold">Beste App voor kinderen!</h4>
     <div class="block  fixed inset-x-0 bottom-0 pb-20 safe-area-inset-bottom">
       <div class=" flex justify-center items-center">
- 
-        
-          <x-login-button id="beginButton" class="!rounded-full w-52 h-24 text-2xl "> Begin </x-login-button>
-        
+      <a href="{{ url('/client/welcome/2') }}">
+        <x-login-button id="beginButton" class="!rounded-full w-52 h-24 text-2xl hover:bg-[#87c5bd] active:bg-[#53aca0]  "> Begin </x-login-button>
       </div>
+      </a>
       <style>
         @media screen and (max-width: 3000px) {
           body {
@@ -35,3 +34,4 @@
       </style>
   </body>
 </x-guest-layout>
+
