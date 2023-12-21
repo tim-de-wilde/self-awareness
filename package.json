@@ -17,6 +17,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@alpinejs/focus": "^3.13.3",
         "highcharts": "^11.2.0"
     }
 }
