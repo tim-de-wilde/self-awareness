@@ -27,7 +27,7 @@
                             class="w-80 object-contain"
                             alt="">
                 </div>
-                <div>
+                <div class="px-4 py-16 flex" >
                     <input
                             wire:model.live="currentValue"
                             x-ref="slider"
@@ -35,22 +35,24 @@
                             min="1"
                             max="100"
                             value="50"
-                            class="w-full">
+                            class="w-full"
+                            >
                 </div>
             </div>
 
             {{-- Buttons for previous and next question --}}
-            <div class="absolute top-1/2 right-0">
+            <div>
                 <button wire:click="next" type="button">
-                    <x-heroicon-o-chevron-right class="w-10 h-10"/>
+                    <x-heroicon-o-chevron-right class="absolute top-0 right-4 w-14 h-full hover:stroke-blue-900"/>
                 </button>
             </div>
-
-            <div class="absolute top-1/2 left-0">
+        @if($index !==0)
+            <div>
                 <button wire:click="back" type="button">
-                    <x-heroicon-o-chevron-left class="w-10 h-10"/>
+                    <x-heroicon-o-chevron-left class="absolute left-4 top-0 w-14 h-full hover:stroke-blue-900"/>
                 </button>
             </div>
+        @endif
         </div>
     @endif
 </div>
