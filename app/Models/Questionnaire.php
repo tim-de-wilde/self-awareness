@@ -16,4 +16,9 @@ class Questionnaire extends Model
     {
         return $this->belongsToMany(Question::class);
     }
+
+    public function treatmentPlans(): BelongsToMany
+    {
+        return $this->belongsToMany(TreatmentPlan::class);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Livewire\Psychologist\Client;
 
 use App\Enums\Gender;
 use App\Enums\Role;
+use App\Models\Questionnaire;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -20,13 +21,29 @@ class CreateOrEdit extends Component
 
     public array $data = [];
 
+    public array $selectedQuestionnaireIds = [];
+
+    public array $questionnaireOptions = [];
+
     public function mount(): void
     {
         $client = $this->client;
 
         if ($client instanceof User) {
             $this->data = ['birth_date' => $client->birth_date->format('Y-m-d')] + $client->toArray();
+
+            $this->selectedQuestionnaireIds = $client
+                ->clientTreatmentPlan()
+                ->first()
+                ->questionnaires()
+                ->get()
+                ->pluck('id')
+                ->toArray();
         }
+
+        $this->questionnaireOptions = Questionnaire::query()
+            ->get()
+            ->toArray();
     }
 
     public function render(): View
@@ -51,6 +68,8 @@ class CreateOrEdit extends Component
             'data.gender' => ['required', new Enum(Gender::class)],
             'data.birth_date' => 'required|date',
             'data.phone' => 'nullable|string',
+            'selectedQuestionnaireIds' => 'nullable|array',
+            'selectedQuestionnaireIds.*' => 'exists:questionnaires,id',
         ];
     }
 
@@ -58,6 +77,7 @@ class CreateOrEdit extends Component
     {
         $client = $this->client;
         $data = $this->validate()['data'];
+        $questionnaireIds = $this->selectedQuestionnaireIds;
 
         if (! empty($client->id)) {
             $client->update($data);
@@ -72,6 +92,12 @@ class CreateOrEdit extends Component
                 'parent_id' => $client->getParentId(),
             ]);
         }
+
+        $client
+            ->clientTreatmentPlan()
+            ->first()
+            ->questionnaires()
+            ->sync($questionnaireIds);
 
         $this->redirectRoute('psychologist.client.show', [
             'client' => $client->id

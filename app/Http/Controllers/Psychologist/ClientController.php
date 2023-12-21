@@ -19,7 +19,11 @@ class ClientController extends Controller
             ->first()
             ->questionnaires()
             ?->pluck('name')
-            ?->join(', ') ?? __('none');
+            ?->join(', ');
+
+        if (empty($questionnaireNames)) {
+            $questionnaireNames = __('none');
+        }
 
         return view('psychologist.client.show', [
             'client' => $client,
