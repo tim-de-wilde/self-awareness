@@ -23,8 +23,6 @@ class CreateOrEdit extends Component
 
     public array $selectedQuestionnaireIds = [];
 
-    public array $questionnaireOptions = [];
-
     public function mount(): void
     {
         $client = $this->client;
@@ -40,10 +38,6 @@ class CreateOrEdit extends Component
                 ->pluck('id')
                 ->toArray();
         }
-
-        $this->questionnaireOptions = Questionnaire::query()
-            ->get()
-            ->toArray();
     }
 
     public function render(): View
@@ -51,6 +45,22 @@ class CreateOrEdit extends Component
         return view('livewire.psychologist.client.create-or-edit', [
             'client' => $this->client,
         ]);
+    }
+
+    public function getQuestionnaires(string $query): array
+    {
+        $selectedQuestionnaireIds = $this->selectedQuestionnaireIds;
+
+        return Questionnaire::query()
+            ->whereIn('id', $selectedQuestionnaireIds)
+            ->orWhere('name', 'like', "%$query%")
+            ->limit(count($selectedQuestionnaireIds) + 5)
+            ->get()
+            ->map(fn (Questionnaire $questionnaire) => [
+                'id' => $questionnaire->id,
+                'name' => $questionnaire->name,
+            ])
+            ->toArray();
     }
 
     protected function rules(): array

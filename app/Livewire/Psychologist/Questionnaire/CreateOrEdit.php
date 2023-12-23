@@ -7,6 +7,7 @@ use App\Models\Question;
 use App\Models\Questionnaire;
 use App\Models\TreatmentPlan;
 use App\Traits\ManagesModal;
+use http\Client;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -26,8 +27,6 @@ class CreateOrEdit extends Component
     public array $stagedQuestionnaireData = [];
 
     public array $selectedTreatmentPlanIds = [];
-
-    public array $treatmentPlanOptions = [];
 
     public array $stagedQuestions = [];
 
@@ -69,10 +68,19 @@ class CreateOrEdit extends Component
                 ->pluck('id')
                 ->toArray();
         }
+    }
 
-
-        $this->treatmentPlanOptions = TreatmentPlan::query()
-            ->whereHas('client', fn (Builder $q) => $q->whereRole(Role::Client))
+    public function getTreatmentPlans(string $search): array
+    {
+        return TreatmentPlan::query()
+            ->whereIn('id', $this->selectedTreatmentPlanIds)
+            ->orWhereHas('client', fn (Builder $q) => $q
+                ->whereRole(Role::Client)
+                ->when(! empty($search), fn (Builder $q) => $q->whereRaw(
+                    "concat(users.name, ' ', users.last_name) like '%$search%'"
+                ))
+            )
+            ->limit(count($this->selectedTreatmentPlanIds) + 10)
             ->get()
             ->map(function (TreatmentPlan $treatmentPlan) {
                 $client = $treatmentPlan->client()->first();

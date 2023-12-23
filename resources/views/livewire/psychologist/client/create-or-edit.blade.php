@@ -87,7 +87,7 @@
                             placeholder="{{ __('Description') }}"
                             id="description"
                             name="description"
-                            class="mt-1"></x-textarea>
+                            class="mt-1"/>
                         <x-input-error :messages="$errors->get('data.description')" class="mt-2"/>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                 <x-input-label :value="__('Questionnaires')"/>
                 <x-autocomplete
                     wire:model.live="selectedQuestionnaireIds"
-                    :items="$questionnaireOptions"/>
+                    queryMethod="getQuestionnaires"/>
                 <x-input-error :messages="$errors->get('selectedQuestionnaireIds')"/>
             </div>
 

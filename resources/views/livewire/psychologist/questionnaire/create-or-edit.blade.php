@@ -20,7 +20,7 @@
                     <x-input-label :value="__('Users')" />
                     <x-autocomplete
                         wire:model.live="selectedTreatmentPlanIds"
-                        :items="$treatmentPlanOptions"/>
+                        queryMethod="getTreatmentPlans"/>
                     <x-input-error :messages="$errors->get('selectedUserIds')"/>
                 </div>
 
