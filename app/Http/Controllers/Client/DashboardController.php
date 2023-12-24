@@ -39,7 +39,6 @@ class DashboardController extends Controller
         return view('client.dashboard', [
             'questionnaireColorGroup' => $questionnaireColorGroup,
             'currentUser' => Auth::user(),
-            'schoolName' => Auth::user()->school()->first()?->school,
             "parent"=> $this->getParent(),
         ]);
     }

@@ -1,56 +1,92 @@
-<div class="relative h-full">
-    @if($isFinished)
-        <div class="flex flex-col h-full py-6">
-            <div class="flex flex-1 flex-col justify-center text-center">
-                <img src="{{ asset('images/stickers/fox.png') }}" alt="Sticker">
-                <p class="text-lg font-semibold">
-                    {{ __('You\'ve completed this questionnaire for today. Come back tomorrow for a new one!') }}
-                </p>
-            </div>
-
-            <div class="flex justify-center">
-                <a href="{{ route('client.dashboard') }}" class="p-2 rounded-lg bg-sky-400 text-lg inline-flex justify-center w-[200px]">
-                    {{ __('Back to questions') }}
-                </a>
-            </div>
-        </div>
-    @else
-        <div class="h-full">
-            <div class="px-2 py-4 flex flex-col h-full">
-                <div class="text-center flex-1 flex flex-col justify-center">
-                    <h1 class="text-2xl font-semibold">{{ $title }}</h1>
-                    <p class="mt-2">{{ $description }}</p>
-                </div>
-                <div class="flex justify-center pt-4">
-                    <img
-                            src="{{ $imgLoc }}"
-                            class="w-80 object-contain"
-                            alt="">
-                </div>
-                <div>
-                    <input
-                            wire:model.live="currentValue"
-                            x-ref="slider"
-                            type="range"
+<div x-ref="container" class="relative h-full" x-data="viewQuestionnaireApp()" x-init="onInit()">
+    <div
+        class="h-full block overflow-hidden transition-all duration-300"
+        x-bind:style="{ transform: `translateX(-${transform()}px)`, width: `${containerWidth()}px` }">
+        <template x-for="(item, index) in items">
+            <div class="w-screen inline-block h-full p-4">
+                <div class="flex flex-col w-full h-full text-center">
+                    <h2 x-text="item.title" class="text-2xl font-semibold py-4"></h2>
+                    <p x-text="item.description" class="text-lg"></p>
+                    <div class="flex-1">
+                        <img
+                            x-bind:src="assetSource(item, index)"
+                            alt="Emoticon">
+                    </div>
+                    <div>
+                        <input
+                            x-model.debounce="answers[index]"
                             min="1"
                             max="100"
-                            value="50"
-                            class="w-full">
+                            type="range"
+                            class="w-full h-8">
+                    </div>
                 </div>
             </div>
+        </template>
+    </div>
 
-            {{-- Buttons for previous and next question --}}
-            <div class="absolute top-1/2 right-0">
-                <button wire:click="next" type="button">
-                    <x-heroicon-o-chevron-right class="w-10 h-10"/>
-                </button>
-            </div>
+    {{-- Buttons for previous and next question --}}
+    <div class="absolute top-1/2 right-0">
+        <button x-on:click="next()" type="button">
+            <x-heroicon-o-chevron-right class="w-10 h-10"/>
+        </button>
+    </div>
 
-            <div class="absolute top-1/2 left-0">
-                <button wire:click="back" type="button">
-                    <x-heroicon-o-chevron-left class="w-10 h-10"/>
-                </button>
-            </div>
-        </div>
-    @endif
+    <div class="absolute top-1/2 left-0">
+        <button x-on:click="previous()" type="button">
+            <x-heroicon-o-chevron-left class="w-10 h-10"/>
+        </button>
+    </div>
 </div>
+
+@once
+    @push('scripts')
+        <script type="text/javascript">
+            window.viewQuestionnaireApp = () => {
+                return {
+                    index: 0,
+                    items: @js($questions),
+                    answers: [],
+                    transformContainer: 0,
+
+                    onInit() {
+                        this.answers = this.items.map(() => 50)
+                    },
+
+                    next() {
+                        if (this.index < this.items.length - 1) {
+                            this.index += 1
+                        }
+                    },
+
+                    previous() {
+                        if (this.index > 0) {
+                            this.index -= 1
+                        }
+                    },
+
+                    transform() {
+                        return this.$refs.container.offsetWidth * this.index
+                    },
+
+                    containerWidth() {
+                        return this.$refs.container.offsetWidth * this.items.length + 10
+                    },
+
+                    assetSource(item, index) {
+                        const answer = this.answers[index]
+                        const assets = item.assets
+
+                        for (let i = 0; i < assets.length; i += 1) {
+                            const part = (100 / assets.length) * i+1
+
+                            if (answer < part) {
+                                return item.assets[i].location
+                            }
+                        }
+                    },
+                }
+            }
+        </script>
+    @endpush
+@endonce
