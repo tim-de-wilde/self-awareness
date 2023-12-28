@@ -3,12 +3,16 @@
         <div class="h-full py-2 max-w-4xl mx-auto px-4">
             <x-client-dropdown :client="$currentUser"/>
 
-            @forelse($questionnaireColorGroup as $group)
+            @forelse($dataGroup as $group)
                 <x-questionnaire-overview-card
                     :color="$group['color']"
                     :questionnaire="$group['questionnaire']"
+                    :link="route('questionnaire.index', ['questionnaire' => $group['questionnaire']->id, 'treatmentPlan' => $treatmentPlan])"
                 >
-                    <x-sticker/>
+                    <x-sticker
+                        :asset="$group['sticker']"
+                        :show="$group['questionnaire']->isCompletedForUser($currentUser, $treatmentPlan)"
+                        class="w-24 h-24"/>
                 </x-questionnaire-overview-card>
             @empty
                 <span class="italic">

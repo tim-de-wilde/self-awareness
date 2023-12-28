@@ -15,6 +15,8 @@ class AnswerFactory extends Factory
     {
         return [
             'value' => $this->faker->numberBetween(0, 100),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 }

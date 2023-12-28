@@ -5,8 +5,6 @@
             <div class="flex">
                 <div class="shrink-0 flex items-center mt-1">
 
-                    <!-- Logout Icon -->
-    
                     <!--Make Logout icon visible if user is on the dashboard page-->
                     @if(request()->is('client/dashboard*'))
                         <form method="POST" action="{{ route('logout') }}">
@@ -20,7 +18,7 @@
                     <!-- Going Back icon -->
                     <!-- Make Goingback icon visible everywhere else-->
                     @if(!request()->is('client/dashboard*'))
-                        <a href="{{ url()->previous() }}" >
+                        <a href="{{ $back ?? url()->previous() }}" >
                             <x-heroicon-o-arrow-uturn-left class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
                         </a>
                     @endif

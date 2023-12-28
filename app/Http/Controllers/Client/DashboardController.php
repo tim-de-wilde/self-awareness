@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Enums\Sticker;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -27,19 +28,22 @@ class DashboardController extends Controller
     {
         $treatmentPlan = Auth::user()->clientTreatmentPlan()->first();
         $colors = ['red', 'orange', 'green'];
-        $questionnaireColorGroup = [];
+        $stickers = Sticker::cases();
+        $dataGroup = [];
 
         foreach ($treatmentPlan?->questionnaires()->get() ?? [] as $key => $questionnaire) {
-            $questionnaireColorGroup[] = [
+            $dataGroup[] = [
                 'questionnaire' => $questionnaire,
-                'color' => $colors[$key % 3],
+                'color' => $colors[$key % count($colors)],
+                'sticker' => $stickers[$key % count($stickers)],
             ];
         }
 
         return view('client.dashboard', [
-            'questionnaireColorGroup' => $questionnaireColorGroup,
+            'dataGroup' => $dataGroup,
+            'treatmentPlan' => $treatmentPlan,
             'currentUser' => Auth::user(),
-            "parent"=> $this->getParent(),
+            'parent' => $this->getParent(),
         ]);
     }
 }

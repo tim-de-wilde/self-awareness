@@ -75,6 +75,7 @@ return new class extends Migration {
             $table->foreignId('questionnaire_id');
             $table->foreignId('question_id');
             $table->foreignId('treatment_plan_id');
+            $table->timestamps();
         });
     }
 };

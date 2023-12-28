@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/questionnaire/{questionnaire}', [QuestionnaireController::class, 'index'])
+Route::get('/questionnaire/view/{questionnaire}/{treatmentPlan}', [QuestionnaireController::class, 'index'])
     ->middleware(['auth'])
     ->name('questionnaire.index');
 
