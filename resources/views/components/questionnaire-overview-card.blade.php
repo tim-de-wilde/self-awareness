@@ -5,7 +5,7 @@
     'red' => ['#FCDDCC', '#FFA26F'],
     'green' => ['#E5EBC0', '#C1CE73'],
 ])
-
+<a href="{{ $link ?? route('questionnaire.index', ['questionnaire' => $questionnaire->id]) }}" class="block">
 <div class="bg-[{{ $colors[$color][0] }}] p-1 mt-5 mx-auto shadow-lg overflow-hidden rounded-2xl relative">
     <div class="p-4">
         <!-- Titel -->
@@ -16,8 +16,9 @@
         </p>
 
         <!-- Button -->
-        <a href="{{ $link ?? route('questionnaire.index', ['questionnaire' => $questionnaire->id]) }}" class="bg-[{{ $colors[$color][1] }}] active:bg-[#6600ff] hover:bg-[#6666ff] text-white font-bold py-2 px-4 rounded mt-4">
-            Naar vragen
-        </a>
+        <span class="bg-[{{ $colors[$color][1] }}] active:bg-[#6600ff] hover:bg-[#6666ff] text-white font-bold py-2 px-4 rounded mt-4">
+            Naar vragen   
+        </span>
     </div>
 </div>
+</a>
