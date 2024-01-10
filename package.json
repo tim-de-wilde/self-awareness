@@ -18,6 +18,7 @@
     },
     "dependencies": {
         "@alpinejs/focus": "^3.13.3",
+        "@hotjar/browser": "^1.0.9",
         "highcharts": "^11.2.0"
     }
 }
