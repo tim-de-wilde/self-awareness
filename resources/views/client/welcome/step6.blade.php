@@ -8,7 +8,7 @@
   <body>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <h1 class="text-center text-4xl mt-40 font-bold ">YOU’RE DONE! </h1>
+    <h1 class="text-center text-4xl mt-5 font-bold ">YOU’RE DONE! </h1>
     <h1 class="text-center text-3xl mt-10 font-semibold ">You are now ready to start </h1>
     <div class="flex justify-center items-center mt-1 ">
       <img src="{{ asset('images/welcome5.png') }}" alt="Welcome Image">

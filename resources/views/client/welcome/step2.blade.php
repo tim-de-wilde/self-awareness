@@ -8,7 +8,7 @@
   <body>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <h1 class="text-center text-3xl mt-40 font-bold ">Select questionnaires</h1>
+    <h1 class="text-center text-3xl mt-5 font-bold ">Select questionnaires</h1>
     <div class="flex justify-center items-center ">
       <img src="{{ asset('images/welcome1.png') }}" alt="Welcome Image">
     </div>
@@ -23,17 +23,17 @@
             <div class="w-3 h-3 bg-[#D9D9D9] rounded-full ml-1"></div>
             <div class="w-3 h-3 bg-[#D9D9D9] rounded-full ml-1"></div>
           </div>
-          <div class="flex">
+          <div class="flex ">
             <!-- Erster Button mit Pfeil-Icon -->
             <a href="{{ url('/client/welcome/1') }}" >
 
-            <x-login-button id="iconButton" class="!rounded-full w-28 h-24 text-2xl mr-2 flex items-center justify-center hover:bg-[#87c5bd] active:bg-[#53aca0]">
+            <x-login-button id="iconButton" class="!rounded-full w-28 h-24 text-2xl mr-2 flex items-center  justify-center hover:bg-[#87c5bd] active:bg-[#53aca0]">
               <x-heroicon-o-arrow-left class="h-9 text-gray-800" />
             </x-login-button>
             </a>
             <!-- Zweiter Button mit "Begin" Text -->
             <a href="{{ url('/client/welcome/3') }}">
-            <x-login-button id="beginButton" class="!rounded-full w-64 h-24 text-2xl relative hover:bg-[#87c5bd] active:bg-[#53aca0]"> Next </x-login-button>
+            <x-login-button id="beginButton" class="!rounded-full w-64 h-24 text-2xl  relative hover:bg-[#87c5bd] active:bg-[#53aca0]"> Next </x-login-button>
             </a>
           </div>
         </div>

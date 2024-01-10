@@ -8,7 +8,7 @@
   <body>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-    <h1 class="text-center text-3xl mt-40 font-bold ">Answer questions using the slider</h1>
+    <h1 class="text-center text-3xl mt-5 font-bold ">Answer questions using the slider</h1>
     <div class="flex justify-center items-center mt-1 ">
       <img src="{{ asset('images/welcome2.png') }}" alt="Welcome Image">
     </div>

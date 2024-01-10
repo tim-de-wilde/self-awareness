@@ -9,7 +9,7 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <h1 class="text-center text-7xl mt-64 font-bold text-[#A4582E] ">VAMA</h1>
-    <h2 class="text-center text-4xl mt-40 font-semibold ">Welkom</h2>
+    <h2 class="text-center text-4xl mt-50 font-semibold ">Welkom</h2>
     <h4 class="text-center text-2xl mt-10  font-semibold">Beste App voor kinderen!</h4>
     <div class="block  fixed inset-x-0 bottom-0 pb-20 safe-area-inset-bottom">
       <div class=" flex justify-center items-center">
