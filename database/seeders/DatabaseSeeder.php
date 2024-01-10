@@ -28,15 +28,15 @@ class DatabaseSeeder extends Seeder
              ->role(Role::Psychologist)
              ->create([
                  'name' => 'Test User',
-                 'email' => 'user@example.com',
+                 'email' => 'psy@example.com',
              ]);
 
          $parent = User::factory()
              ->role(Role::Parent)
              ->create();
 
-         for ($i = 0; $i < 10; $i++) {
-             $email = sprintf('client%s@example.com', ($i === 0) ? '' : $i);
+         for ($i = 0; $i < 11; $i++) {
+             $email = sprintf('user%s@example.com', ($i === 0) ? '' : $i);
              $client = User::factory()
                  ->role(Role::Client)
                  ->has(School::factory())
