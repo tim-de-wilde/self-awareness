@@ -1,15 +1,7 @@
 <x-guest-layout role="client">
-  <!---NOTE-->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const beginButton = document.getElementById('beginButton');
-    });
-  </script>
   <body>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
     <h1 class="text-center text-3xl mt-5 font-bold ">Select questionnaires</h1>
-    <div class="flex justify-center items-center ">
+    <div class="flex-1 flex justify-center items-center ">
       <img src="{{ asset('images/welcome1.png') }}" alt="Welcome Image">
     </div>
     <div class="block fixed inset-x-0 bottom-0 pb-20 safe-area-inset-bottom">

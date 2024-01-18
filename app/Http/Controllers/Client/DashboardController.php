@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Enums\Sticker;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
@@ -24,8 +25,15 @@ class DashboardController extends Controller
 
         return $parent;
     }
-    public function index(): View
+    public function index(): View | RedirectResponse
     {
+        /** @var User $user */
+        $user = Auth::user();
+
+        if (! $user->hasCompletedOnboarding()) {
+            return redirect()->route('client.welcome', ['step' => 1]);
+        }
+
         $treatmentPlan = Auth::user()->clientTreatmentPlan()->first();
         $colors = ['red', 'orange', 'green'];
         $stickers = Sticker::cases();
