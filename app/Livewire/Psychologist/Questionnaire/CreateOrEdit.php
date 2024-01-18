@@ -2,10 +2,14 @@
 
 namespace App\Livewire\Psychologist\Questionnaire;
 
+use App\Enums\Role;
 use App\Models\Question;
 use App\Models\Questionnaire;
+use App\Models\TreatmentPlan;
 use App\Traits\ManagesModal;
+use http\Client;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -21,6 +25,8 @@ class CreateOrEdit extends Component
     public ?Questionnaire $questionnaire = null;
 
     public array $stagedQuestionnaireData = [];
+
+    public array $selectedTreatmentPlanIds = [];
 
     public array $stagedQuestions = [];
 
@@ -55,7 +61,36 @@ class CreateOrEdit extends Component
                 'name',
                 'description',
             ]);
+
+            $this->selectedTreatmentPlanIds = $this->questionnaire
+                ->treatmentPlans()
+                ->get()
+                ->pluck('id')
+                ->toArray();
         }
+    }
+
+    public function getTreatmentPlans(string $search): array
+    {
+        return TreatmentPlan::query()
+            ->whereIn('id', $this->selectedTreatmentPlanIds)
+            ->orWhereHas('client', fn (Builder $q) => $q
+                ->whereRole(Role::Client)
+                ->when(! empty($search), fn (Builder $q) => $q->whereRaw(
+                    "concat(users.name, ' ', users.last_name) like '%$search%'"
+                ))
+            )
+            ->limit(count($this->selectedTreatmentPlanIds) + 10)
+            ->get()
+            ->map(function (TreatmentPlan $treatmentPlan) {
+                $client = $treatmentPlan->client()->first();
+
+                return [
+                    'id' => $treatmentPlan->id,
+                    'name' => $client->name . ' ' . $client->last_name,
+                ];
+            })
+            ->toArray();
     }
 
     public function save(): void
@@ -85,6 +120,10 @@ class CreateOrEdit extends Component
                 ['order' => $question['order']]
             );
         }
+
+        $questionnaire->treatmentPlans()->sync(
+            $this->selectedTreatmentPlanIds
+        );
 
         $this->back();
     }
@@ -145,9 +184,16 @@ class CreateOrEdit extends Component
             ];
         }
 
-        $this->stagedQuestion = [];
-
         $this->closeModal();
+    }
+
+    public function openModal(bool $new = false): void
+    {
+        if ($new) {
+            $this->stagedQuestion = [];
+        }
+
+        $this->showModal = true;
     }
 
     public function render(): View

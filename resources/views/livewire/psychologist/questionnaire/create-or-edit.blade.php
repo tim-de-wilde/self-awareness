@@ -1,5 +1,4 @@
 <div class="h-full py-8 bg-[#E4EFEF]" x-data="{ show: @entangle('showModal').live }">
-
     <div class="max-w-4xl mx-auto p-4 h-full flex flex-col">
         <div class="flex-1 space-y-4 overflow-y-auto">
             <div class="rounded-full text-sm font-semibold bg-sky-200 text-center px-4 py-1">
@@ -13,13 +12,21 @@
 
                 <div>
                     <x-input-label for="name" :value="__('Name')"/>
-                    <x-text-input wire:model="stagedQuestionnaireData.name" id="name"/>
+                    <x-text-input wire:model="stagedQuestionnaireData.name" id="name" class="mt-1"/>
                     <x-input-error :messages="$errors->get('stagedQuestionnaireData.name')" />
                 </div>
 
                 <div>
+                    <x-input-label :value="__('Users')" />
+                    <x-autocomplete
+                        wire:model.live="selectedTreatmentPlanIds"
+                        queryMethod="getTreatmentPlans"/>
+                    <x-input-error :messages="$errors->get('selectedUserIds')"/>
+                </div>
+
+                <div>
                     <x-input-label for="description" :value="__('Description')"/>
-                    <x-textarea wire:model="stagedQuestionnaireData.description" id="description"/>
+                    <x-textarea wire:model="stagedQuestionnaireData.description" id="description" class="mt-1"/>
                     <x-input-error :messages="$errors->get('stagedQuestionnaireData.description')"/>
                 </div>
             </div>
@@ -28,7 +35,7 @@
                 <div class="border-b border-gray-300 pb-1 flex justify-between space-x-4">
                     <h2>{{ __('Questions') }}</h2>
 
-                    <button wire:click="openModal">
+                    <button wire:click="openModal(true)">
                         {{ __('+ Add new question') }}
                     </button>
                 </div>
@@ -40,7 +47,7 @@
                                 <li
                                         wire:click="editQuestion('{{ $question['id'] }}')"
                                         wire:sortable.item="{{ $question['id']  }}"
-                                        class="p-2 flex items-center space-x-4 hover:bg-gray-50 cursor-pointer"
+                                        class="p-2 flex items-center space-x-4 hover:bg-gray-50 cursor-pointer transition ease-in-out duration-150"
                                 >
                                     <img
                                             class="h-10 w-10 object-contain"
@@ -82,14 +89,14 @@
             <div class="p-4 space-y-4">
                 <div>
                     <x-input-label :value="__('Title')" for="title"/>
-                    <x-text-input wire:model="stagedQuestion.title" name="title" id="title"/>
-                    <x-input-error :messages="$errors->get('stagedQuestion.title')" class="mt-2" />
+                    <x-text-input wire:model="stagedQuestion.title" name="title" id="title" class="mt-1 w-full"/>
+                    <x-input-error :messages="$errors->get('stagedQuestion.title')" class="mt-1" />
                 </div>
 
                 <div>
                     <x-input-label :value="__('Description')" for="description"/>
-                    <x-textarea wire:model="stagedQuestion.description" name="description"/>
-                    <x-input-error :messages="$errors->get('stagedQuestion.description')"/>
+                    <x-textarea wire:model="stagedQuestion.description" name="description" class="mt-1"/>
+                    <x-input-error :messages="$errors->get('stagedQuestion.description')" class="mt-1"/>
                 </div>
 
                 {{-- TODO Files --}}

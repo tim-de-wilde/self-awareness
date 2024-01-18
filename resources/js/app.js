@@ -1,7 +1,10 @@
 import './bootstrap';
 
-import { Livewire } from '../../vendor/livewire/livewire/dist/livewire.esm.js';
-
 import 'livewire-sortable'
 
-Livewire.start()
+import Hotjar from "@hotjar/browser"
+
+const site = 3821017
+const version = 6
+
+Hotjar.init(site, version)

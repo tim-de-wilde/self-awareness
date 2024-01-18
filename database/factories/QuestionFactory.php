@@ -16,7 +16,6 @@ class QuestionFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'asset_location' => asset('images/animals.png'),
             'created_at' => now(),
             'updated_at' => now(),
         ];

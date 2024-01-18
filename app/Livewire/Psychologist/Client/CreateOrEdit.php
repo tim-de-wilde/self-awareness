@@ -4,6 +4,7 @@ namespace App\Livewire\Psychologist\Client;
 
 use App\Enums\Gender;
 use App\Enums\Role;
+use App\Models\Questionnaire;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,22 @@ class CreateOrEdit extends Component
 
     public array $data = [];
 
+    public array $selectedQuestionnaireIds = [];
+
     public function mount(): void
     {
         $client = $this->client;
 
         if ($client instanceof User) {
             $this->data = ['birth_date' => $client->birth_date->format('Y-m-d')] + $client->toArray();
+
+            $this->selectedQuestionnaireIds = $client
+                ->clientTreatmentPlan()
+                ->first()
+                ->questionnaires()
+                ->get()
+                ->pluck('id')
+                ->toArray();
         }
     }
 
@@ -34,6 +45,22 @@ class CreateOrEdit extends Component
         return view('livewire.psychologist.client.create-or-edit', [
             'client' => $this->client,
         ]);
+    }
+
+    public function getQuestionnaires(string $query): array
+    {
+        $selectedQuestionnaireIds = $this->selectedQuestionnaireIds;
+
+        return Questionnaire::query()
+            ->whereIn('id', $selectedQuestionnaireIds)
+            ->orWhere('name', 'like', "%$query%")
+            ->limit(count($selectedQuestionnaireIds) + 5)
+            ->get()
+            ->map(fn (Questionnaire $questionnaire) => [
+                'id' => $questionnaire->id,
+                'name' => $questionnaire->name,
+            ])
+            ->toArray();
     }
 
     protected function rules(): array
@@ -51,6 +78,8 @@ class CreateOrEdit extends Component
             'data.gender' => ['required', new Enum(Gender::class)],
             'data.birth_date' => 'required|date',
             'data.phone' => 'nullable|string',
+            'selectedQuestionnaireIds' => 'nullable|array',
+            'selectedQuestionnaireIds.*' => 'exists:questionnaires,id',
         ];
     }
 
@@ -58,6 +87,7 @@ class CreateOrEdit extends Component
     {
         $client = $this->client;
         $data = $this->validate()['data'];
+        $questionnaireIds = $this->selectedQuestionnaireIds;
 
         if (! empty($client->id)) {
             $client->update($data);
@@ -72,6 +102,12 @@ class CreateOrEdit extends Component
                 'parent_id' => $client->getParentId(),
             ]);
         }
+
+        $client
+            ->clientTreatmentPlan()
+            ->first()
+            ->questionnaires()
+            ->sync($questionnaireIds);
 
         $this->redirectRoute('psychologist.client.show', [
             'client' => $client->id

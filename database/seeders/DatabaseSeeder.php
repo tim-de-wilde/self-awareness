@@ -28,38 +28,21 @@ class DatabaseSeeder extends Seeder
              ->role(Role::Psychologist)
              ->create([
                  'name' => 'Test User',
-                 'email' => 'user@example.com',
+                 'email' => 'psy@example.com',
              ]);
 
          $parent = User::factory()
              ->role(Role::Parent)
              ->create();
 
-         $client = User::factory()
-             ->role(Role::Client)
-             ->has(School::factory())
-             ->create([
-                 'email' => 'client@example.com'
-             ]);
-
-         $treatmentPlan = $client->clientTreatmentPlan()->save(
-             TreatmentPlan::factory()->create([
-                 'client_id' => $client->id,
-                 'psychologist_id' => $psychologist->id,
-                 'parent_id' => $parent->id,
-             ])
-         );
-
-         $treatmentPlan->questionnaires()->saveMany(
-             Questionnaire::factory(3)
-                 ->has(Question::factory(5))
-                 ->create()
-         );
-
-         for ($i = 0; $i < 10; $i++) {
+         for ($i = 0; $i < 11; $i++) {
+             $email = sprintf('user%s@example.com', ($i === 0) ? '' : $i);
              $client = User::factory()
                  ->role(Role::Client)
-                 ->create();
+                 ->has(School::factory())
+                 ->create([
+                     'email' => $email
+                 ]);
 
              $treatmentPlan = TreatmentPlan::factory()->create([
                  'client_id' => $client->id,

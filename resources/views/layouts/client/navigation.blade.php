@@ -5,8 +5,6 @@
             <div class="flex">
                 <div class="shrink-0 flex items-center mt-1">
 
-                    <!-- Logout Icon -->
-    
                     <!--Make Logout icon visible if user is on the dashboard page-->
                     @if(request()->is('client/dashboard*'))
                         <form method="POST" action="{{ route('logout') }}">
@@ -20,7 +18,7 @@
                     <!-- Going Back icon -->
                     <!-- Make Goingback icon visible everywhere else-->
                     @if(!request()->is('client/dashboard*'))
-                        <a href="{{ url()->previous() }}" >
+                        <a href="{{ $back ?? url()->previous() }}" >
                             <x-heroicon-o-arrow-uturn-left class="h-7 text-gray-400 hover:text-gray-500 focus:outline-none focus:text-gray-500 active:text-gray-700 transition duration-150 ease-in-out" />
                         </a>
                     @endif
@@ -50,9 +48,9 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+{{--                        <x-dropdown-link :href="route('profile.edit')">--}}
+{{--                            {{ __('Profile') }}--}}
+{{--                        </x-dropdown-link>--}}
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
@@ -93,9 +91,9 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
+{{--                <x-responsive-nav-link :href="route('profile.edit')">--}}
+{{--                    {{ __('Profile') }}--}}
+{{--                </x-responsive-nav-link>--}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
