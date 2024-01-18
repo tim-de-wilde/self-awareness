@@ -97,4 +97,9 @@ class User extends Authenticatable
     {
         return $this->role === Role::Client;
     }
+
+    public function hasCompletedOnboarding(): bool
+    {
+        return $this->completed_onboarding;
+    }
 }
