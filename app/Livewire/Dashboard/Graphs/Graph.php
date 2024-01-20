@@ -65,12 +65,6 @@ class Graph extends Component
             return $this->answers->where(['questionnaire_id', '=', $questionnaireId], ['question_id', '=', $questionId], ['user_id', '=', $userView]);
         }
     }
-
-
-
-
-
-
     public function render()
     {
         return view('livewire.graphs.graph');

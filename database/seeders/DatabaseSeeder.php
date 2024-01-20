@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-
     public function run(): void
     {
         $this->call([
@@ -51,6 +50,22 @@ class DatabaseSeeder extends Seeder
              ]);
 
              $treatmentPlan->questionnaires()->save($questionnaire);
+
+             foreach (range(1, 5) as $j) {
+                 $date = now()->addDays($j);
+
+                 /** @var Question $question */
+                 foreach ($questionnaire->questions()->get() as $question) {
+                     Answer::factory()->create([
+                         'user_id' => $client->id,
+                         'questionnaire_id' => $questionnaire->id,
+                         'question_id' => $question->id,
+                         'treatment_plan_id' => $treatmentPlan->id,
+                         'created_at' => $date,
+                         'updated_at' => $date,
+                     ]);
+                 }
+             }
 
              $school = School::factory()
                  ->create(['client_id' => $client->id]);

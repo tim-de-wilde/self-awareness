@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Question;
 use App\Models\QuestionAsset;
 use App\Models\Questionnaire;
-use Database\Factories\QuestionAssetFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Arr;
 
