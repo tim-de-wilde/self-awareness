@@ -46,6 +46,6 @@ class ClientController extends Controller
     public function delete(User $client): RedirectResponse
     {
         $client->delete();
-        return redirect()->route('psychologist.manage.index');
+        return redirect()->route('psychologist.dashboard');
     }
 }

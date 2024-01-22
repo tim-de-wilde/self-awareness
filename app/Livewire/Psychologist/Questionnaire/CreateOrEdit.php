@@ -130,7 +130,7 @@ class CreateOrEdit extends Component
 
     public function back(): void
     {
-        $this->redirectRoute('psychologist.manage.index');
+        $this->redirectRoute('psychologist.dashboard');
     }
 
     public function editQuestion(string $id): void

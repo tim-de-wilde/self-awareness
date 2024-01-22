@@ -5,13 +5,9 @@ use App\Http\Controllers\Psychologist\ClientController;
 use App\Http\Controllers\Psychologist\QuestionnaireController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/dashboard', function () {
-    return view('psychologist.dashboard');
-})->name('psychologist.dashboard');
 
-
-Route::get('manage', [ManageClientAndQuestionnaireController::class, 'index'])
-    ->name('psychologist.manage.index');
+Route::get('/dashboard', [ManageClientAndQuestionnaireController::class, 'index'])
+    ->name('psychologist.dashboard');
 
 // clients
 
