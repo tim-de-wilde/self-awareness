@@ -18,7 +18,7 @@ class EnsureUserHasRole
             throw new InvalidArgumentException('Role does not exist');
         }
 
-        if ($request->user()->role !== $role) {
+        if ($request->user()?->role !== $role) {
             abort(403, __('You do not have access to this page.'));
         }
 
