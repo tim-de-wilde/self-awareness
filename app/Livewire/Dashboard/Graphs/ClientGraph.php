@@ -107,7 +107,7 @@ class ClientGraph extends Component
         $mappedByQuestion = [];
 
         foreach ($answers as $answer) {
-            $title = $answer->question->title;
+            $title = $answer->question?->title ?? '';
 
             if (! array_key_exists($title, $mappedByQuestion)) {
                 $mappedByQuestion[$title] = [];
