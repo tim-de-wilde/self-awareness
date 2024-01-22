@@ -118,10 +118,10 @@
     <style>
 @media screen and (max-width: 800px) {
 body {
-        background-image: url('https://images.pexels.com/photos/1770706/pexels-photo-1770706.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'); /* Pfad zum Hintergrundbild */
-        background-size: cover; /* Skaliert das Bild, um den Container zu füllen */
-        background-position: center; /* Zentriert das Bild */
-        background-attachment: fixed; /* Hintergrund bleibt beim Scrollen fest */
+        background-image: url('{{ asset('images/login/mobile.png') }}');
+        background-size: cover;
+        background-position: centewr;
+        background-attachment: fixed;
     }
 
   }
