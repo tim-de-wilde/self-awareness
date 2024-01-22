@@ -1,4 +1,4 @@
-<div>
+<div x-data="{ show: @entangle('showModal').live }">
     <!--psy client editpage-->
     <script>
         // JavaScript function to submit the delete form
@@ -14,18 +14,12 @@
                     <span class="font-bold text-1xl ">{{ ($client === null) ? 'VOEG EEN KLANT TOE' : 'Client Editen' }} </span>
 
                 </div>
-                <div class="items-center flex justify-center py-2 rounded-full mx-auto my-5 w-1/12 bg-[#B9DDD8]  hover:bg-red-400  active:bg-red-600">
-                    <button id="arrowButton" class="focus:outline-none py-1"
-                            onclick="submitDeleteForm()">
+
+                @if($client !== null)
+                    <button wire:click="confirmDeleteClient" type="button" class="items-center flex justify-center py-2 rounded-full mx-auto my-5 w-1/12 bg-[#B9DDD8]  hover:bg-red-400  active:bg-red-600">
                         <x-heroicon-s-trash class="h-5 text-gray-800" />
                     </button>
-
-                    @if($client !== null)
-                        <form id="deleteForm" action="{{ route('psychologist.client.delete', ['client' => $client->id]) }}" method="post" style="display: none;">
-                            @csrf
-                        </form>
-                    @endif
-                </div>
+                @endif
             </div>
 
             {{-- Avatar and contact information. --}}
@@ -108,4 +102,26 @@
             </div>
         </div>
     </form>
+
+    <x-alpine-modal>
+        <div>
+            <div class="border-b border-gray-300 p-4 font-semibold">
+                <h2>{{ __('Are you sure you want to delete this client?') }}</h2>
+            </div>
+
+            <p class="p-4">
+                {{ __('This client can no longer be recovered.') }}
+            </p>
+
+            <div class="flex justify-end space-x-2 p-2">
+                <x-secondary-button x-on:click="show = false">
+                    {{ __('Cancel') }}
+                </x-secondary-button>
+
+                <x-danger-button wire:click="deleteClient">
+                    {{ __('Delete') }}
+                </x-danger-button>
+            </div>
+        </div>
+    </x-alpine-modal>
 </div>

@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Enums\Role;
 use App\Models\Questionnaire;
 use App\Models\User;
+use App\Traits\ManagesModal;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -16,6 +17,8 @@ use Livewire\Features\SupportRedirects\HandlesRedirects;
 class CreateOrEdit extends Component
 {
     use HandlesRedirects;
+
+    use ManagesModal;
 
     public ?User $client = null;
 
@@ -112,5 +115,16 @@ class CreateOrEdit extends Component
         $this->redirectRoute('psychologist.client.show', [
             'client' => $client->id
         ]);
+    }
+
+    public function confirmDeleteClient(): void
+    {
+        $this->openModal();
+    }
+
+    public function deleteClient(): void
+    {
+        $this->client?->delete();
+        $this->redirectRoute('psychologist.dashboard');
     }
 }
