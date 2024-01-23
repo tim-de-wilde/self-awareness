@@ -87,7 +87,7 @@ class CreateOrEdit extends Component
 
                 return [
                     'id' => $treatmentPlan->id,
-                    'name' => $client->name . ' ' . $client->last_name,
+                    'name' => empty($client) ? '' : ($client->name . ' ' . $client->last_name),
                 ];
             })
             ->toArray();
@@ -115,7 +115,6 @@ class CreateOrEdit extends Component
                 [
                     'title' => $question['title'],
                     'description' => $question['description'],
-                    'asset_location' => asset('images/animals.png'),
                 ],
                 ['order' => $question['order']]
             );
